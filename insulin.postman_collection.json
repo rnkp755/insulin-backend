@@ -1,0 +1,130 @@
+{
+	"info": {
+		"_postman_id": "5e47e090-135a-4d5e-bebf-e48832aaf665",
+		"name": "insulin",
+		"description": "This **Postman** collection includes every API calls of **insulins**",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "31633333"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "REGISTER",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"test@gmail.com\",\r\n    \"fullName\": \"Test User\",\r\n    \"password\": \"password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{server}}/user/register"
+					},
+					"response": []
+				},
+				{
+					"name": "LOGIN",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"test@gmail.com\",\r\n    \"password\": \"password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{server}}/user/login"
+					},
+					"response": []
+				},
+				{
+					"name": "LOGOUT",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": {
+								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2FhNmY3MDUzNTlkNTlmNzc0MzBkYTAiLCJmdWxsTmFtZSI6IlRlc3QgVXNlciIsImlhdCI6MTczOTIyNDA0MiwiZXhwIjoxNzM5MzEwNDQyfQ.zdV9BDUdKr3yt5RuV67hbVxX4guZOEeLa4wnnsab9oQ"
+							}
+						},
+						"method": "POST",
+						"header": [
+							{
+								"key": "Cache-Control",
+								"value": "no-cache",
+								"name": "cache-control",
+								"type": "text"
+							},
+							{
+								"key": "Postman-Token",
+								"value": "<calculated when request is sent>",
+								"name": "postman-token",
+								"type": "text"
+							},
+							{
+								"key": "Content-Length",
+								"value": "0",
+								"name": "content-length",
+								"type": "text"
+							},
+							{
+								"key": "Host",
+								"value": "<calculated when request is sent>",
+								"name": "host",
+								"type": "text"
+							},
+							{
+								"key": "User-Agent",
+								"value": "PostmanRuntime/7.39.1",
+								"name": "user-agent",
+								"type": "text"
+							},
+							{
+								"key": "Accept",
+								"value": "*/*",
+								"name": "accept",
+								"type": "text"
+							},
+							{
+								"key": "Accept-Encoding",
+								"value": "gzip, deflate, br",
+								"name": "accept-encoding",
+								"type": "text"
+							},
+							{
+								"key": "Connection",
+								"value": "keep-alive",
+								"name": "connection",
+								"type": "text"
+							},
+							{
+								"key": "Coo",
+								"value": "",
+								"type": "text"
+							}
+						],
+						"url": "{{server}}/user/logout",
+						"description": "Steps to use Logout API on Postman:\n\n1. Hit Login route and go to Response Headers.\n2. Look for Set-Cookie field, copy accessToken from there. (E.g: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXV.......)\n3. Now come to Logout route on Postman.\n    \n4. In Authorization Serction, select \"Bearer Token\".\n    \n5. Paste the token copied.\n    \n6. Hit Enter."
+					},
+					"response": []
+				}
+			],
+			"description": "Contains all routes related to Auth."
+		}
+	],
+	"variable": [
+		{
+			"key": "server",
+			"value": "http://localhost:3000/api/v1",
+			"type": "string"
+		}
+	]
+}
