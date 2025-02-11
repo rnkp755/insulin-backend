@@ -72,9 +72,9 @@ const verifyOTP = asyncHandler(async (req, res) => {
 
 	let user;
 	if (reason === "register") {
-		user = await proceedWithRegistration(email);
+		user = await proceedWithRegistration(email, reason);
 	} else if (reason === "reset-password") {
-		await allowPasswordChange(email);
+		await allowPasswordChange(email, reason);
 	}
 
 	return res
@@ -83,17 +83,19 @@ const verifyOTP = asyncHandler(async (req, res) => {
 			new APIResponse(
 				200,
 				{ user },
-				"OTP verified, proceed with registration"
+				reason == "register"
+					? "OTP verified, proceed with registration"
+					: "OTP verified, Please change password within 5 minutes"
 			)
 		);
 });
 
-const proceedWithRegistration = async (email) => {
+const proceedWithRegistration = async (email, reason) => {
 	let user = await User.findOne({ email });
 	if (!user) {
 		user = await User.create({ email });
 	}
-	await OTP.deleteMany({ email });
+	await OTP.deleteMany({ email, reason });
 
 	if (!user) {
 		user = await User.create({ email });
@@ -101,7 +103,7 @@ const proceedWithRegistration = async (email) => {
 	return user;
 };
 
-const allowPasswordChange = async (email) => {
+const allowPasswordChange = async (email, reason) => {
 	const user = await User.findOne({ email });
 	if (!user) {
 		throw new APIError(400, "User doesn't exist");
@@ -109,7 +111,7 @@ const allowPasswordChange = async (email) => {
 
 	user.allowPasswordReset = true;
 	await user.save({ validateBeforeSave: false });
-	await OTP.deleteMany({ email });
+	await OTP.deleteMany({ email, reason });
 	return user;
 };
 

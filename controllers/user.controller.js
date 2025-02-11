@@ -237,8 +237,14 @@ const resetPassword = asyncHandler(async (req, res) => {
 	if (!user) {
 		throw new APIError(400, "User doesn't exist");
 	}
-	if (!user.allowPasswordReset) {
-		throw new APIError(400, "Password reset is not allowed");
+	if (
+		!user.allowPasswordReset ||
+		new Date() > new Date(user.updatedAt.getTime() + 5 * 60 * 1000)
+	) {
+		throw new APIError(
+			400,
+			"Password reset is not allowed. Reset Session maybe expired."
+		);
 	}
 
 	user.password = newPassword;

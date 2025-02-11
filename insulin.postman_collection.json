@@ -100,7 +100,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"skyd6ix@gmail.com\",\r\n    \"password\": \"password\"\r\n}",
+							"raw": "{\r\n    \"email\": \"pmstk1801@gmail.com\",\r\n    \"password\": \"password\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -127,7 +127,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"firstName\": \"Pranav\",\r\n    \"lastName\": \"Kumar\",\r\n    \"mobile\": \"9999999999\",\r\n    \"gender\": \"male\",\r\n    \"age\": 25,\r\n    \"email\": \"skyd6ix@gmail.com\",\r\n    \"password\": \"password\"\r\n}",
+							"raw": "{\r\n    \"firstName\": \"Pranav\",\r\n    \"lastName\": \"Kumar\",\r\n    \"mobile\": \"9999999999\",\r\n    \"gender\": \"male\",\r\n    \"age\": 25,\r\n    \"email\": \"pmstk1801@gmail.com\",\r\n    \"password\": \"password\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -184,7 +184,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"skyd6ix@gmail.com\"\r\n}",
+							"raw": "{\r\n    \"email\": \"pmstk1801@gmail.com\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -213,7 +213,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"skyd6ix@gmail.com\",\r\n    \"otp\": \"3229\"\r\n}",
+							"raw": "{\r\n    \"email\": \"pmstk1801@gmail.com\",\r\n    \"otp\": \"3229\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -242,7 +242,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"skyd6ix@gmail.com\",\r\n    \"otp\": \"2931\"\r\n}",
+							"raw": "{\r\n    \"email\": \"pmstk1801@gmail.com\",\r\n    \"otp\": \"6810\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -270,7 +270,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"skyd6ix@gmail.com\",\r\n    \"newPassword\": \"changedPassword\"\r\n}",
+							"raw": "{\r\n    \"email\": \"pmstk1801@gmail.com\",\r\n    \"newPassword\": \"password\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
