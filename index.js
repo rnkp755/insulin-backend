@@ -24,10 +24,12 @@ app.use(express.json());
 app.use(cookieparser());
 
 // Importing Routes
-import userRoute from "./routes/user.route.js";
+import userRouter from "./routes/user.route.js";
+import otpRouter from "./routes/otp.route.js";
 
 // Using Routes
-app.use("/api/v1/user", userRoute);
+app.use("/api/v1/user", userRouter);
+app.use("/api/v1/otp", otpRouter);
 
 connectToMongo()
 	.then(() => {

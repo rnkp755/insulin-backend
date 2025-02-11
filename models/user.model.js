@@ -3,11 +3,40 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 const userSchema = new Schema(
 	{
-		fullName: {
+		firstName: {
 			type: String,
-			required: true,
 			trim: true,
-			minLength: [3, "Name must be at least 3 characters long"],
+			minLength: [
+				2,
+				"First name must be at least 2 characters long",
+			],
+		},
+		lastName: {
+			type: String,
+			trim: true,
+			minLength: [
+				3,
+				"Last name must be at least 2 characters long",
+			],
+		},
+		mobile: {
+			type: String,
+			minlength: 10,
+			maxlength: 10,
+			unique: true,
+			sparse: true,
+			trim: true,
+			index: true,
+			match: [/^[0-9]{10}$/, "Invalid mobile number"],
+		},
+		gender: {
+			type: String,
+			enum: ["male", "female", "other"],
+		},
+		age: {
+			type: Number,
+			min: [0, "Age must be at least 0"],
+			max: [120, "Age must be at most 120"],
 		},
 		email: {
 			type: String,
@@ -21,12 +50,15 @@ const userSchema = new Schema(
 		},
 		password: {
 			type: String,
-			required: true,
 			minLength: [8, "Password must be at least 8 characters long"],
 			maxLength: [
 				16,
 				"Password must be at most 16 characters long",
 			],
+		},
+		allowPasswordReset: {
+			type: Boolean,
+			default: false,
 		},
 		role: {
 			type: String,
@@ -55,7 +87,7 @@ userSchema.methods.generateAccessToken = async function () {
 	return jwt.sign(
 		{
 			_id: this._id,
-			fullName: this.fullName,
+			fullName: this.firstName + " " + this.lastName,
 		},
 		process.env.ACCESS_TOKEN_SECRET,
 		{

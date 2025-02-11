@@ -23,25 +23,42 @@ const generateAccessAndRefreshTokens = async (userId) => {
 };
 
 const registerUser = asyncHandler(async (req, res) => {
-	const { email, fullName, password } = req.body;
+	const { firstName, lastName, mobile, gender, age, email, password } =
+		req.body;
 	if (
-		[email, fullName, password].includes(undefined) ||
-		[email, fullName, password].some((field) => field.trim() === "")
+		[
+			firstName,
+			lastName,
+			mobile,
+			gender,
+			age,
+			email,
+			password,
+		].includes(undefined) ||
+		[firstName, lastName, mobile, gender, email, password].some(
+			(field) => field.trim() === ""
+		) ||
+		age < 0
 	) {
 		throw new APIError(400, "Please provide all the required fields");
 	}
-	// Other Validations
 
+	// Other Validations
 	const existedUser = await User.findOne({ email });
-	if (existedUser) {
-		throw new APIError(400, "User already exists");
+	if (!existedUser) {
+		throw new APIError(
+			400,
+			"User doesn't exist. Please verify your email first."
+		);
 	}
 
-	const user = await User.create({
-		email,
-		fullName,
-		password,
-	});
+	existedUser.firstName = firstName;
+	existedUser.lastName = lastName;
+	existedUser.mobile = mobile;
+	existedUser.gender = gender;
+	existedUser.age = age;
+	existedUser.password = password;
+	const user = await existedUser.save({ validateBeforeSave: true });
 
 	const newUser = await User.findById(user._id).select(
 		"-password -refreshToken -__v -createdAt -updatedAt"
@@ -208,10 +225,36 @@ const changeUserPassword = asyncHandler(async (req, res) => {
 		.json(new APIResponse(200, {}, "Password Updated Successfully"));
 });
 
+const resetPassword = asyncHandler(async (req, res) => {
+	const { email, newPassword } = req.body;
+	console.log("Reset Password", req.body);
+
+	if (!email) {
+		throw new APIError(400, "Email is required");
+	}
+
+	const user = await User.findOne({ email });
+	if (!user) {
+		throw new APIError(400, "User doesn't exist");
+	}
+	if (!user.allowPasswordReset) {
+		throw new APIError(400, "Password reset is not allowed");
+	}
+
+	user.password = newPassword;
+	user.allowPasswordReset = false;
+	await user.save({ validateBeforeSave: true });
+
+	return res
+		.status(200)
+		.json(new APIResponse(200, {}, "Password Updated Successfully"));
+});
+
 export {
 	registerUser,
 	loginUser,
 	logoutUser,
 	refreshAccessToken,
 	changeUserPassword,
+	resetPassword,
 };

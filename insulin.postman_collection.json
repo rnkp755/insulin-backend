@@ -2,8 +2,8 @@
 	"info": {
 		"_postman_id": "5e47e090-135a-4d5e-bebf-e48832aaf665",
 		"name": "insulin",
-		"description": "This **Postman** collection includes every API calls of **insulins**",
-		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"description": "This **Postman** collection includes every API calls of **insulins.**\n\nFlow of Registration:\n\n- Hit **SEND-OTP for REGISTER ,** when first time user enters email.\n    \n- verify the otp by **VERIFY-OTP for REGISTER.**\n    \n- Then to add more details, hit **REGISTER.**\n    \n\nFlow of Password Reset:\n\n- Hit **SEND-OTP for** Password Reset**,** with email.\n    \n- verify the otp by **VERIFY-OTP for** Password Reset**.**\n    \n- Then to reset, hit **RESET PASSWORD**",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "31633333"
 	},
 	"item": [
@@ -11,49 +11,17 @@
 			"name": "Auth",
 			"item": [
 				{
-					"name": "REGISTER",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"test@gmail.com\",\r\n    \"fullName\": \"Test User\",\r\n    \"password\": \"password\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": "{{server}}/user/register"
-					},
-					"response": []
-				},
-				{
-					"name": "LOGIN",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"test@gmail.com\",\r\n    \"password\": \"password\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": "{{server}}/user/login"
-					},
-					"response": []
-				},
-				{
 					"name": "LOGOUT",
 					"request": {
 						"auth": {
 							"type": "bearer",
-							"bearer": {
-								"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2FhNmY3MDUzNTlkNTlmNzc0MzBkYTAiLCJmdWxsTmFtZSI6IlRlc3QgVXNlciIsImlhdCI6MTczOTIyNDA0MiwiZXhwIjoxNzM5MzEwNDQyfQ.zdV9BDUdKr3yt5RuV67hbVxX4guZOEeLa4wnnsab9oQ"
-							}
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2FhZmM5M2E1MGJiZTFhMTU4ZWU0OTYiLCJmdWxsTmFtZSI6IlByYW5hdiBLdW1hciIsImlhdCI6MTczOTI1OTQyOSwiZXhwIjoxNzM5MzQ1ODI5fQ.z8e9JF4qFR9cmssDIDHdxqtlIEVtNw41yd2csp1oz18",
+									"type": "string"
+								}
+							]
 						},
 						"method": "POST",
 						"header": [
@@ -111,13 +79,257 @@
 								"type": "text"
 							}
 						],
-						"url": "{{server}}/user/logout",
+						"url": {
+							"raw": "{{server}}/user/logout",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"user",
+								"logout"
+							]
+						},
 						"description": "Steps to use Logout API on Postman:\n\n1. Hit Login route and go to Response Headers.\n2. Look for Set-Cookie field, copy accessToken from there. (E.g: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXV.......)\n3. Now come to Logout route on Postman.\n    \n4. In Authorization Serction, select \"Bearer Token\".\n    \n5. Paste the token copied.\n    \n6. Hit Enter."
 					},
 					"response": []
+				},
+				{
+					"name": "LOGIN",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"skyd6ix@gmail.com\",\r\n    \"password\": \"password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/user/login",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"user",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "REGISTER",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"Pranav\",\r\n    \"lastName\": \"Kumar\",\r\n    \"mobile\": \"9999999999\",\r\n    \"gender\": \"male\",\r\n    \"age\": 25,\r\n    \"email\": \"skyd6ix@gmail.com\",\r\n    \"password\": \"password\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/user/register",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"user",
+								"register"
+							]
+						},
+						"description": "You must have Hit SEND-OTP for REGISTER and VERIFY-OTP for REGISTER before hitting this."
+					},
+					"response": []
+				},
+				{
+					"name": "SEND-OTP for REGISTER",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"skyd6ix@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/otp/send/register",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"otp",
+								"send",
+								"register"
+							]
+						},
+						"description": "First step of Registration"
+					},
+					"response": []
+				},
+				{
+					"name": "SEND-OTP for Password Reset",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"skyd6ix@gmail.com\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/otp/send/reset-password",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"otp",
+								"send",
+								"reset-password"
+							]
+						},
+						"description": "First step for Forget Password"
+					},
+					"response": []
+				},
+				{
+					"name": "VERIFY-OTP for REGISTER",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"skyd6ix@gmail.com\",\r\n    \"otp\": \"3229\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/otp/verify/register",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"otp",
+								"verify",
+								"register"
+							]
+						},
+						"description": "Second Step for Forget password"
+					},
+					"response": []
+				},
+				{
+					"name": "VERIFY-OTP for Password Reset",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"skyd6ix@gmail.com\",\r\n    \"otp\": \"2931\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/otp/verify/reset-password",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"otp",
+								"verify",
+								"reset-password"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "RESET PASSWORD",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"email\": \"skyd6ix@gmail.com\",\r\n    \"newPassword\": \"changedPassword\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/user/reset-password",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"user",
+								"reset-password"
+							]
+						},
+						"description": "Final step for forget password"
+					},
+					"response": []
+				},
+				{
+					"name": "CHANGE PASSWORD",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2FhZmM5M2E1MGJiZTFhMTU4ZWU0OTYiLCJmdWxsTmFtZSI6IlByYW5hdiBLdW1hciIsImlhdCI6MTczOTI1OTQyOSwiZXhwIjoxNzM5MzQ1ODI5fQ.z8e9JF4qFR9cmssDIDHdxqtlIEVtNw41yd2csp1oz18",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"newPassword\": \"password\",\r\n    \"oldPassword\": \"changedPassword\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/user/change-password",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"user",
+								"change-password"
+							]
+						},
+						"description": "If a logged in user wants to change password, using his old password.\n\nAuthorization Bearer Token is required, similar to Logout route."
+					},
+					"response": []
 				}
-			],
-			"description": "Contains all routes related to Auth."
+			]
 		}
 	],
 	"variable": [
