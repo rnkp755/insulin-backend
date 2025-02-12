@@ -72,7 +72,12 @@ const verifyOTP = asyncHandler(async (req, res) => {
 
 	let user;
 	if (reason === "register") {
-		user = await proceedWithRegistration(email, reason);
+		let user = await User.findOne({ email });
+		if (user) {
+			throw new APIError(400, "User already exists");
+		}
+		user = await User.create({ email });
+		await OTP.deleteMany({ email, reason });
 	} else if (reason === "reset-password") {
 		await allowPasswordChange(email, reason);
 	}
@@ -89,19 +94,6 @@ const verifyOTP = asyncHandler(async (req, res) => {
 			)
 		);
 });
-
-const proceedWithRegistration = async (email, reason) => {
-	let user = await User.findOne({ email });
-	if (!user) {
-		user = await User.create({ email });
-	}
-	await OTP.deleteMany({ email, reason });
-
-	if (!user) {
-		user = await User.create({ email });
-	}
-	return user;
-};
 
 const allowPasswordChange = async (email, reason) => {
 	const user = await User.findOne({ email });
