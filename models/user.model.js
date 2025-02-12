@@ -23,10 +23,7 @@ const userSchema = new Schema(
 			type: String,
 			minlength: 10,
 			maxlength: 10,
-			unique: true,
-			sparse: true,
 			trim: true,
-			index: true,
 			match: [/^[0-9]{10}$/, "Invalid mobile number"],
 		},
 		gender: {
@@ -71,6 +68,9 @@ const userSchema = new Schema(
 	},
 	{ timestamps: true }
 );
+
+// Special indexinng for mobile number
+userSchema.index({ mobile: 1 }, { unique: true, sparse: true });
 
 userSchema.pre("save", async function (next) {
 	if (this.isModified("password")) {
