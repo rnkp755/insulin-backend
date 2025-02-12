@@ -23,8 +23,16 @@ const generateAccessAndRefreshTokens = async (userId) => {
 };
 
 const registerUser = asyncHandler(async (req, res) => {
-	const { firstName, lastName, mobile, gender, age, email, password } =
-		req.body;
+	const {
+		quiz,
+		firstName,
+		lastName,
+		mobile,
+		gender,
+		age,
+		email,
+		password,
+	} = req.body;
 	if (
 		[
 			firstName,
@@ -44,6 +52,11 @@ const registerUser = asyncHandler(async (req, res) => {
 	}
 
 	// Other Validations
+	const duplicateUser = await User.findOne({ mobile });
+	if (duplicateUser) {
+		throw new APIError(400, "Mobile Number already exists");
+	}
+
 	const existedUser = await User.findOne({ email });
 	if (!existedUser) {
 		throw new APIError(
@@ -52,6 +65,7 @@ const registerUser = asyncHandler(async (req, res) => {
 		);
 	}
 
+	existedUser.quiz = quiz;
 	existedUser.firstName = firstName;
 	existedUser.lastName = lastName;
 	existedUser.mobile = mobile;

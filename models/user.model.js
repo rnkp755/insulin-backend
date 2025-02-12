@@ -65,6 +65,11 @@ const userSchema = new Schema(
 			enum: ["user", "admin"],
 			default: "user",
 		},
+		quiz: [
+			{
+				type: String,
+			},
+		],
 		refreshToken: {
 			type: String,
 		},
