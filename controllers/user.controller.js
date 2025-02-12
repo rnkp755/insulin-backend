@@ -57,6 +57,13 @@ const registerUser = asyncHandler(async (req, res) => {
 		throw new APIError(400, "Mobile Number already exists");
 	}
 
+	if (password.length < 8 || password.length > 16) {
+		throw new APIError(
+			400,
+			"Password length must be between 8 to 16 characters"
+		);
+	}
+
 	const existedUser = await User.findOne({ email });
 	if (!existedUser) {
 		throw new APIError(
@@ -226,6 +233,17 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
 
 const changeUserPassword = asyncHandler(async (req, res) => {
 	const { oldPassword, newPassword } = req.body;
+
+	if (!oldPassword || !newPassword) {
+		throw new APIError(400, "Please provide all the required fields");
+	}
+	if (newPassword.length < 8 || newPassword.length > 16) {
+		throw new APIError(
+			400,
+			"Password length must be between 8 to 16 characters"
+		);
+	}
+
 	console.log("Change Password", req.user._id);
 	const user = await User.findById(req.user?._id);
 	if (!user.isPasswordcorrect(oldPassword))
@@ -270,6 +288,72 @@ const resetPassword = asyncHandler(async (req, res) => {
 		.json(new APIResponse(200, {}, "Password Updated Successfully"));
 });
 
+const updateProfile = asyncHandler(async (req, res) => {
+	const { quiz, firstName, lastName, mobile, gender, age } = req.body;
+	const user = await User.findById(req.user?._id);
+	if (!user) {
+		throw new APIError(401, "Unathorized Access. Please login first");
+	}
+	if (
+		quiz !== undefined &&
+		JSON.stringify(quiz) !== JSON.stringify(user.quiz) &&
+		quiz.length > 0
+	) {
+		user.quiz = quiz;
+	}
+	if (
+		firstName !== undefined &&
+		firstName !== user.firstName &&
+		firstName.trim() !== ""
+	) {
+		user.firstName = firstName;
+	}
+	if (
+		lastName !== undefined &&
+		lastName !== user.lastName &&
+		lastName.trim() !== ""
+	) {
+		user.lastName = lastName;
+	}
+	if (
+		mobile !== undefined &&
+		mobile !== user.mobile &&
+		mobile.trim() !== ""
+	) {
+		user.mobile = mobile;
+	}
+	if (
+		gender !== undefined &&
+		gender !== user.gender &&
+		gender.trim() !== ""
+	) {
+		user.gender = gender;
+	}
+	if (
+		age !== undefined &&
+		age !== user.age &&
+		age.trim() !== "" &&
+		age > 0
+	) {
+		user.age = age;
+	}
+	await user.save({ validateBeforeSave: true });
+
+	const updatedUser = await User.findById(user._id).select(
+		"-password -refreshToken -__v -createdAt -updatedAt"
+	);
+
+	return res
+		.status(200)
+		.json(
+			new APIResponse(
+				200,
+				updatedUser,
+				"Profile Updated Successfully"
+			)
+		);
+});
+
 export {
 	registerUser,
 	loginUser,
@@ -277,4 +361,5 @@ export {
 	refreshAccessToken,
 	changeUserPassword,
 	resetPassword,
+	updateProfile,
 };

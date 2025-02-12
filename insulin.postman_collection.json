@@ -127,7 +127,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"firstName\": \"Pranav\",\r\n    \"lastName\": \"Kumar\",\r\n    \"mobile\": \"9999999999\",\r\n    \"gender\": \"male\",\r\n    \"age\": 25,\r\n    \"email\": \"pmstk1801@gmail.com\",\r\n    \"password\": \"password\"\r\n}",
+							"raw": "{\r\n    \"firstName\": \"Pranav\",\r\n    \"lastName\": \"Kumar\",\r\n    \"mobile\": \"9999999999\",\r\n    \"gender\": \"male\",\r\n    \"age\": 25,\r\n    \"email\": \"pmstk1801@gmail.com\",\r\n    \"password\": \"password\",\r\n    \"quiz\": [\"Answer1\", \"Answer2\"]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -144,7 +144,7 @@
 								"register"
 							]
 						},
-						"description": "You must have Hit SEND-OTP for REGISTER and VERIFY-OTP for REGISTER before hitting this."
+						"description": "You must have Hit SEND-OTP for REGISTER and VERIFY-OTP for REGISTER before hitting this.\n\nHere's the fields included in this route\n\n| **Fields** | **Type** |\n| --- | --- |\n| quiz | \\[String\\] |\n| firstName | String |\n| lastName | String |\n| mobile | Number |\n| gender | String |\n| age | Number |\n| email | String |\n| password | String |"
 					},
 					"response": []
 				},
@@ -155,7 +155,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"skyd6ix@gmail.com\"\r\n}",
+							"raw": "{\r\n    \"email\": \"pmstk1801@gmail.com\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -326,6 +326,44 @@
 							]
 						},
 						"description": "If a logged in user wants to change password, using his old password.\n\nAuthorization Bearer Token is required, similar to Logout route."
+					},
+					"response": []
+				},
+				{
+					"name": "UPDATE PROFILE",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2FjM2VmODc1NWNlYjIzN2YxODVmMGQiLCJmdWxsTmFtZSI6IlByYW5hdiBLdW1hciIsImlhdCI6MTczOTM0NDMzMiwiZXhwIjoxNzM5NDMwNzMyfQ.de_wFPCQDbFFKMyWukIFbzUGKMT6nD3cN7ChGsuCz2Q",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"quiz\": [\"updatedAnswer1\", \"updatedAnswer2\"],\r\n    \"gender\": \"other\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/user/update",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"user",
+								"update"
+							]
+						},
+						"description": "- Login is required.\n    \n- Send Access token in Authourization tab, after selection Bearer Token.\n    \n- These many fields can be updated.\n    \n\n| **Fields** | **Type** |\n| --- | --- |\n| quiz | \\[String\\] |\n| firstName | String |\n| lastName | String |\n| mobile | Number |\n| gender | String |\n| age | Number |"
 					},
 					"response": []
 				}

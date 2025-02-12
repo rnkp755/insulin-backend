@@ -50,11 +50,7 @@ const userSchema = new Schema(
 		},
 		password: {
 			type: String,
-			minLength: [8, "Password must be at least 8 characters long"],
-			maxLength: [
-				16,
-				"Password must be at most 16 characters long",
-			],
+			required: true,
 		},
 		allowPasswordReset: {
 			type: Boolean,
