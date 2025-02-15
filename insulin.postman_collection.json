@@ -213,7 +213,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"pmstk1801@gmail.com\",\r\n    \"otp\": \"3229\"\r\n}",
+							"raw": "{\r\n    \"email\": \"pmstk1801@gmail.com\",\r\n    \"otp\": \"5372\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -230,8 +230,7 @@
 								"verify",
 								"register"
 							]
-						},
-						"description": "Second Step for Forget password"
+						}
 					},
 					"response": []
 				},
@@ -259,7 +258,8 @@
 								"verify",
 								"reset-password"
 							]
-						}
+						},
+						"description": "Second step for Forget Password"
 					},
 					"response": []
 				},
@@ -364,6 +364,49 @@
 							]
 						},
 						"description": "- Login is required.\n    \n- Send Access token in Authourization tab, after selection Bearer Token.\n    \n- These many fields can be updated.\n    \n\n| **Fields** | **Type** |\n| --- | --- |\n| quiz | \\[String\\] |\n| firstName | String |\n| lastName | String |\n| mobile | Number |\n| gender | String |\n| age | Number |"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Gemini",
+			"item": [
+				{
+					"name": "New request",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2IwZDRlMjliZjZmZmMzMGUwNjYzYzEiLCJmdWxsTmFtZSI6IlByYW5hdiBLdW1hciIsImlhdCI6MTczOTY0MjExMSwiZXhwIjoxNzM5NzI4NTExfQ.zZHQx8sRjmXkLZPjjOcGbcppMRG9ijOXHclM7FqBhiY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"user_prompt\": \"How are you ?\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/gemini/ask",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"gemini",
+								"ask"
+							]
+						},
+						"description": "This is for the \\`Search\\` tab in Application.\n\nThis route requires a \\`Bearer Token\\` in Authorization and a \\`user_prompt\\`."
 					},
 					"response": []
 				}

@@ -26,10 +26,12 @@ app.use(cookieparser());
 // Importing Routes
 import userRouter from "./routes/user.route.js";
 import otpRouter from "./routes/otp.route.js";
+import geminiRouter from "./routes/gemini.route.js";
 
 // Using Routes
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/otp", otpRouter);
+app.use("/api/v1/gemini", geminiRouter);
 
 connectToMongo()
 	.then(() => {
