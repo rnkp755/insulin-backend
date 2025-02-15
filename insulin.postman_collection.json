@@ -411,6 +411,180 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Medicine",
+			"item": [
+				{
+					"name": "Add Medicine (Admin Only)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2IwZDRlMjliZjZmZmMzMGUwNjYzYzEiLCJmdWxsTmFtZSI6IlByYW5hdiBLdW1hciIsImlhdCI6MTczOTY0MjExMSwiZXhwIjoxNzM5NzI4NTExfQ.zZHQx8sRjmXkLZPjjOcGbcppMRG9ijOXHclM7FqBhiY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Paracetamol",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Pet dard ki dawa",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "50",
+									"type": "text"
+								},
+								{
+									"key": "quantityInStock",
+									"value": "20",
+									"type": "text"
+								},
+								{
+									"key": "stripSize",
+									"value": "10",
+									"type": "text"
+								},
+								{
+									"key": "images",
+									"type": "file",
+									"src": "c:\\Users\\RAUSHAN KUMAR THAKUR\\Downloads\\fifth.jpeg"
+								},
+								{
+									"key": "images",
+									"type": "file",
+									"src": "c:\\Users\\RAUSHAN KUMAR THAKUR\\Downloads\\fourth.jpeg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{server}}/medicine/add",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"medicine",
+								"add"
+							]
+						},
+						"description": "This route is for Adding a medicine.\n\n- Need `Bearer Token` of `Admin` in `Authorization`.\n    \n- Pass other details in `form-data`"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Medicine",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/medicine/67b0ee49d02f6e38c4a01998",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"medicine",
+								"67b0ee49d02f6e38c4a01998"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Medicines / Search Medicine",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/medicine?query=Para",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"medicine"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "Para"
+								},
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "10",
+									"disabled": true
+								},
+								{
+									"key": "sortBy",
+									"value": "createdAt",
+									"disabled": true
+								},
+								{
+									"key": "sortType",
+									"value": "desc",
+									"disabled": true
+								}
+							]
+						},
+						"description": "This route is used for\n\n- Get all medicines (\\`Pagination\\` and `Sorting` applied).\n    \n- `Search` for medicine in database using \\`query\\` Parameter.\n    \n- No Parameters are mandatory, but a combination of anyone can be used to get the desired result."
+					},
+					"response": []
+				},
+				{
+					"name": "Update Medicine (Admin Only)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2IwZDRlMjliZjZmZmMzMGUwNjYzYzEiLCJmdWxsTmFtZSI6IlByYW5hdiBLdW1hciIsImlhdCI6MTczOTY0MjExMSwiZXhwIjoxNzM5NzI4NTExfQ.zZHQx8sRjmXkLZPjjOcGbcppMRG9ijOXHclM7FqBhiY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"Updated Pet dard ki dawa\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/medicine/update/67b0ee49d02f6e38c4a01998",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"medicine",
+								"update",
+								"67b0ee49d02f6e38c4a01998"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"variable": [
