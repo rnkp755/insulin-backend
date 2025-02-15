@@ -585,6 +585,308 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Test",
+			"item": [
+				{
+					"name": "Add Test (Admin Only)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2IwZDRlMjliZjZmZmMzMGUwNjYzYzEiLCJmdWxsTmFtZSI6IlByYW5hdiBLdW1hciIsImlhdCI6MTczOTY0MjExMSwiZXhwIjoxNzM5NzI4NTExfQ.zZHQx8sRjmXkLZPjjOcGbcppMRG9ijOXHclM7FqBhiY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "name",
+									"value": "Blood Test",
+									"type": "text"
+								},
+								{
+									"key": "description",
+									"value": "Khoon ka test",
+									"type": "text"
+								},
+								{
+									"key": "price",
+									"value": "50",
+									"type": "text"
+								},
+								{
+									"key": "images",
+									"type": "file",
+									"src": "c:\\Users\\RAUSHAN KUMAR THAKUR\\Downloads\\fifth.jpeg"
+								},
+								{
+									"key": "images",
+									"type": "file",
+									"src": "c:\\Users\\RAUSHAN KUMAR THAKUR\\Downloads\\fourth.jpeg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{server}}/test/add",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"test",
+								"add"
+							]
+						},
+						"description": "This route is for Adding a Test.\n\n- Need `Bearer Token` of `Admin` in `Authorization`.\n- Pass other details in `form-data`"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Test",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/test/67b0fe7d423bd8e73946f7b0",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"test",
+								"67b0fe7d423bd8e73946f7b0"
+							]
+						},
+						"description": "This route is to get a specific \\`test\\` by it's \\`id\\`"
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Tests/ Search Medicine",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/test?query=Kidn",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"test"
+							],
+							"query": [
+								{
+									"key": "page",
+									"value": "1",
+									"disabled": true
+								},
+								{
+									"key": "limit",
+									"value": "10",
+									"disabled": true
+								},
+								{
+									"key": "sortBy",
+									"value": "createdAt",
+									"disabled": true
+								},
+								{
+									"key": "sortType",
+									"value": "desc",
+									"disabled": true
+								},
+								{
+									"key": "query",
+									"value": "Kidn"
+								}
+							]
+						},
+						"description": "This route is used for\n\n- Get all tests (\\`Pagination\\` and `Sorting` applied).\n    \n- `Search` for test in database using \\`query\\` Parameter.\n    \n- No Parameters are mandatory, but a combination of anyone can be used to get the desired result."
+					},
+					"response": []
+				},
+				{
+					"name": "Update Test (Admin Only)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2IwZDRlMjliZjZmZmMzMGUwNjYzYzEiLCJmdWxsTmFtZSI6IlByYW5hdiBLdW1hciIsImlhdCI6MTczOTY0MjExMSwiZXhwIjoxNzM5NzI4NTExfQ.zZHQx8sRjmXkLZPjjOcGbcppMRG9ijOXHclM7FqBhiY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"description\": \"Updated Khoon ka test\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/test/update/67b0fe7d423bd8e73946f7b0",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"test",
+								"update",
+								"67b0fe7d423bd8e73946f7b0"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cart",
+			"item": [
+				{
+					"name": "Add to Cart",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2IwZDRlMjliZjZmZmMzMGUwNjYzYzEiLCJmdWxsTmFtZSI6IlByYW5hdiBLdW1hciIsImlhdCI6MTczOTY0MjExMSwiZXhwIjoxNzM5NzI4NTExfQ.zZHQx8sRjmXkLZPjjOcGbcppMRG9ijOXHclM7FqBhiY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"itemId\": \"67b0f3bd5901a6c035ed2b1d\",\r\n    \"itemType\": \"Medicine\",\r\n    \"quantity\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/cart/add",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"cart",
+								"add"
+							]
+						},
+						"description": "This route is to add \\`Medicine\\` or \\`Test\\` to user's cart.\n\nAuthorization is required.\n\nSample Input for \\`Test\\`.\n\n``` json\n{\n    \"itemId\": \"67b0fe7d423bd8e73946f7b0\",\n    \"itemType\": \"Test\",\n    \"date\": \"2025-02-16\",\n    \"timeSlot\": \"03:00 AM - 04:00 AM\"\n}\n\n ```\n\nSample Input for \\`Medicine\\`.\n\n``` json\n{\n    \"itemId\": \"67b0f3bd5901a6c035ed2b1d\",\n    \"itemType\": \"Medicine\",\n    \"quantity\": 2\n}\n\n ```"
+					},
+					"response": []
+				},
+				{
+					"name": "Get Cart",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2IwZDRlMjliZjZmZmMzMGUwNjYzYzEiLCJmdWxsTmFtZSI6IlByYW5hdiBLdW1hciIsImlhdCI6MTczOTY0MjExMSwiZXhwIjoxNzM5NzI4NTExfQ.zZHQx8sRjmXkLZPjjOcGbcppMRG9ijOXHclM7FqBhiY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/cart",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"cart"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Cart",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2IwZDRlMjliZjZmZmMzMGUwNjYzYzEiLCJmdWxsTmFtZSI6IlByYW5hdiBLdW1hciIsImlhdCI6MTczOTY0MjExMSwiZXhwIjoxNzM5NzI4NTExfQ.zZHQx8sRjmXkLZPjjOcGbcppMRG9ijOXHclM7FqBhiY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"itemId\": \"67b0f3bd5901a6c035ed2b1d\",\r\n    \"itemType\": \"Medicine\",\r\n    \"quantity\": 4\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/cart/update",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"cart",
+								"update"
+							]
+						},
+						"description": "This route can be used to\n\n- Update the `quantity` of any medicine in cart.\n- Update `date` or \\`timeSlot\\` of any Test in cart\n    \n\n> \\`Updated quantity\\` needs to be passed and not the \\`increment\\` or \\`decrement\\` number. \n  \n\nSample Input for \\`Test\\`:\n\n``` json\n{\n    \"itemId\": \"67b0fe7d423bd8e73946f7b0\",\n    \"itemType\": \"Test\",\n    \"date\": \"2025-02-17\",\n    \"timeSlot\": \"04:00 AM - 05:00 AM\"\n}\n\n ```\n\nSample Input for \\`Medicine\\`:\n\n``` json\n{\n    \"itemId\": \"67b0f3bd5901a6c035ed2b1d\",\n    \"itemType\": \"Medicine\",\n    \"quantity\": 4\n}\n ```"
+					},
+					"response": []
+				},
+				{
+					"name": "Remove From Cart",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2IwZDRlMjliZjZmZmMzMGUwNjYzYzEiLCJmdWxsTmFtZSI6IlByYW5hdiBLdW1hciIsImlhdCI6MTczOTY0MjExMSwiZXhwIjoxNzM5NzI4NTExfQ.zZHQx8sRjmXkLZPjjOcGbcppMRG9ijOXHclM7FqBhiY",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/cart/remove/67b0f3bd5901a6c035ed2b1d",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"cart",
+								"remove",
+								"67b0f3bd5901a6c035ed2b1d"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"variable": [

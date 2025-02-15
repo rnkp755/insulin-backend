@@ -28,12 +28,16 @@ import userRouter from "./routes/user.route.js";
 import otpRouter from "./routes/otp.route.js";
 import geminiRouter from "./routes/gemini.route.js";
 import medicineRouter from "./routes/medicine.route.js";
+import testRouter from "./routes/test.route.js";
+import cartRouter from "./routes/cart.route.js";
 
 // Using Routes
 app.use("/api/v1/user", userRouter);
 app.use("/api/v1/otp", otpRouter);
 app.use("/api/v1/gemini", geminiRouter);
 app.use("/api/v1/medicine", medicineRouter);
+app.use("/api/v1/test", testRouter);
+app.use("/api/v1/cart", cartRouter);
 
 connectToMongo()
 	.then(() => {

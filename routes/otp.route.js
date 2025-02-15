@@ -1,7 +1,7 @@
-import express from "express";
+import { Router } from "express";
 import { sendOTP, verifyOTP } from "../controllers/otp.controller.js";
 
-const otpRouter = express.Router();
+const otpRouter = Router();
 
 otpRouter.route("/send/:reason").post(sendOTP);
 otpRouter.route("/verify/:reason").post(verifyOTP);

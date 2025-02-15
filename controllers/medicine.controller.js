@@ -60,7 +60,7 @@ const addMedicine = asyncHandler(async (req, res) => {
 			new APIResponse(
 				201,
 				existedMedicine,
-				"User Registered Successfully"
+				"Medicine Created Successfully"
 			)
 		);
 });
@@ -76,7 +76,7 @@ const getMedicine = asyncHandler(async (req, res) => {
 	return res
 		.status(201)
 		.json(
-			new APIResponse(201, medicine, "User Registered Successfully")
+			new APIResponse(201, medicine, "Medicine Found Successfully")
 		);
 });
 

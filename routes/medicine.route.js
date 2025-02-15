@@ -1,4 +1,4 @@
-import express from "express";
+import { Router } from "express";
 import multer from "multer";
 import {
 	addMedicine,
@@ -8,7 +8,7 @@ import {
 } from "../controllers/medicine.controller.js";
 import { verifyAdmin } from "../middlewares/auth.middleware.js";
 
-const medicineRouter = express.Router();
+const medicineRouter = Router();
 
 const upload = multer({ storage: multer.diskStorage({}) });
 medicineRouter
