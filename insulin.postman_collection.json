@@ -127,7 +127,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"firstName\": \"Pranav\",\r\n    \"lastName\": \"Kumar\",\r\n    \"mobile\": \"9999999999\",\r\n    \"gender\": \"male\",\r\n    \"age\": 25,\r\n    \"email\": \"pmstk1801@gmail.com\",\r\n    \"password\": \"password\",\r\n    \"quiz\": [\"Answer1\", \"Answer2\"]\r\n}",
+							"raw": "{\r\n    \"firstName\": \"New Pranav\",\r\n    \"lastName\": \"Kumar\",\r\n    \"mobile\": \"9999999998\",\r\n    \"gender\": \"male\",\r\n    \"age\": 25,\r\n    \"email\": \"pmstk1802@gmail.com\",\r\n    \"password\": \"password\",\r\n    \"quiz\": [\"Answer1\", \"Answer2\"],\r\n    \"state\": \"Bihar\",\r\n    \"pincode\": 140413\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -155,7 +155,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"pmstk1801@gmail.com\"\r\n}",
+							"raw": "{\r\n    \"email\": \"pmstk1802@gmail.com\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -213,7 +213,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"pmstk1801@gmail.com\",\r\n    \"otp\": \"5372\"\r\n}",
+							"raw": "{\r\n    \"email\": \"pmstk1802@gmail.com\",\r\n    \"otp\": \"7760\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -346,7 +346,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"quiz\": [\"updatedAnswer1\", \"updatedAnswer2\"],\r\n    \"gender\": \"other\"\r\n}",
+							"raw": "{\r\n    \"quiz\": [\"updatedAnswer1\", \"updatedAnswer2\"],\r\n    \"gender\": \"other\",\r\n    \"state\": \"Punjab\",\r\n    \"pincode\": 140414\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

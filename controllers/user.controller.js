@@ -32,6 +32,8 @@ const registerUser = asyncHandler(async (req, res) => {
 		age,
 		email,
 		password,
+		state,
+		pincode,
 	} = req.body;
 	if (
 		[
@@ -42,11 +44,15 @@ const registerUser = asyncHandler(async (req, res) => {
 			age,
 			email,
 			password,
+			state,
+			pincode,
 		].includes(undefined) ||
-		[firstName, lastName, mobile, gender, email, password].some(
+		[firstName, lastName, mobile, gender, email, password, state].some(
 			(field) => field.trim() === ""
 		) ||
-		age < 0
+		age < 0 ||
+		pincode < 100000 ||
+		pincode > 999999
 	) {
 		throw new APIError(400, "Please provide all the required fields");
 	}
@@ -79,6 +85,8 @@ const registerUser = asyncHandler(async (req, res) => {
 	existedUser.gender = gender;
 	existedUser.age = age;
 	existedUser.password = password;
+	existedUser.state = state;
+	existedUser.pincode = pincode;
 	const user = await existedUser.save({ validateBeforeSave: true });
 
 	const newUser = await User.findById(user._id).select(
@@ -289,7 +297,8 @@ const resetPassword = asyncHandler(async (req, res) => {
 });
 
 const updateProfile = asyncHandler(async (req, res) => {
-	const { quiz, firstName, lastName, mobile, gender, age } = req.body;
+	const { quiz, firstName, lastName, mobile, gender, age, state, pincode } =
+		req.body;
 	const user = await User.findById(req.user?._id);
 	if (!user) {
 		throw new APIError(401, "Unathorized Access. Please login first");
@@ -336,6 +345,17 @@ const updateProfile = asyncHandler(async (req, res) => {
 		age > 0
 	) {
 		user.age = age;
+	}
+	if (state !== undefined && state !== user.state && state.trim() !== "") {
+		user.state = state;
+	}
+	if (
+		pincode !== undefined &&
+		pincode !== user.pincode &&
+		pincode >= 100000 &&
+		pincode <= 999999
+	) {
+		user.pincode = pincode;
 	}
 	await user.save({ validateBeforeSave: true });
 
