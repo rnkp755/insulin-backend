@@ -887,6 +887,458 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Address",
+			"item": [
+				{
+					"name": "Add Address",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2IwZDRlMjliZjZmZmMzMGUwNjYzYzEiLCJmdWxsTmFtZSI6IlByYW5hdiBLdW1hciIsImlhdCI6MTc0MDUwOTg4NywiZXhwIjoxNzQwNTk2Mjg3fQ.0vxRB8WgQaC_CXFbI_ziTxFiezJx0Vqa0cdm_Djbq10",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Pranav\",\r\n    \"mobile\": \"9999999999\",\r\n    \"pincode\": \"140413\",\r\n    \"address\": \"xyz road\",\r\n    \"city\": \"Mumbai\",\r\n    \"state\": \"Punjab\",\r\n    \"landmark\": \"Redfort\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/address/add",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"address",
+								"add"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update Address",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2IwZDRlMjliZjZmZmMzMGUwNjYzYzEiLCJmdWxsTmFtZSI6IlByYW5hdiBLdW1hciIsImlhdCI6MTc0MDUwOTg4NywiZXhwIjoxNzQwNTk2Mjg3fQ.0vxRB8WgQaC_CXFbI_ziTxFiezJx0Vqa0cdm_Djbq10",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Updated Pranav\",\r\n    \"address\": \"Updated xyz road\",\r\n    \"city\": \"Updated Mumbai\",\r\n    \"state\": \"Maharashtra\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/address/update/67be13eceffe680977e80ba2",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"address",
+								"update",
+								"67be13eceffe680977e80ba2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Address",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2IwZDRlMjliZjZmZmMzMGUwNjYzYzEiLCJmdWxsTmFtZSI6IlByYW5hdiBLdW1hciIsImlhdCI6MTc0MDUwOTg4NywiZXhwIjoxNzQwNTk2Mjg3fQ.0vxRB8WgQaC_CXFbI_ziTxFiezJx0Vqa0cdm_Djbq10",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/address/delete/67be13eceffe680977e80ba2",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"address",
+								"delete",
+								"67be13eceffe680977e80ba2"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Addresses of Mine",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2IwZDRlMjliZjZmZmMzMGUwNjYzYzEiLCJmdWxsTmFtZSI6IlByYW5hdiBLdW1hciIsImlhdCI6MTc0MDUwOTg4NywiZXhwIjoxNzQwNTk2Mjg3fQ.0vxRB8WgQaC_CXFbI_ziTxFiezJx0Vqa0cdm_Djbq10",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/address",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"address"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Address",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2IwZDRlMjliZjZmZmMzMGUwNjYzYzEiLCJmdWxsTmFtZSI6IlByYW5hdiBLdW1hciIsImlhdCI6MTc0MDUwOTg4NywiZXhwIjoxNzQwNTk2Mjg3fQ.0vxRB8WgQaC_CXFbI_ziTxFiezJx0Vqa0cdm_Djbq10",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/address/67be13eceffe680977e80ba2",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"address",
+								"67be13eceffe680977e80ba2"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "These routes are for user to add and manage delivery address"
+		},
+		{
+			"name": "Order",
+			"item": [
+				{
+					"name": "Admin Only",
+					"item": [
+						{
+							"name": "Get All Orders",
+							"protocolProfileBehavior": {
+								"disableBodyPruning": true
+							},
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2IwZDRlMjliZjZmZmMzMGUwNjYzYzEiLCJmdWxsTmFtZSI6IlByYW5hdiBLdW1hciIsImlhdCI6MTc0MDUwOTg4NywiZXhwIjoxNzQwNTk2Mjg3fQ.0vxRB8WgQaC_CXFbI_ziTxFiezJx0Vqa0cdm_Djbq10",
+											"type": "string"
+										}
+									]
+								},
+								"method": "GET",
+								"header": [],
+								"body": {
+									"mode": "formdata",
+									"formdata": [
+										{
+											"key": "sortBy",
+											"value": "createdAt",
+											"type": "text"
+										},
+										{
+											"key": "sortType",
+											"value": "desc",
+											"type": "text"
+										}
+									],
+									"options": {
+										"formdata": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server}}/order",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"order"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "Update Order Status",
+							"request": {
+								"auth": {
+									"type": "bearer",
+									"bearer": [
+										{
+											"key": "token",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2IwZDRlMjliZjZmZmMzMGUwNjYzYzEiLCJmdWxsTmFtZSI6IlByYW5hdiBLdW1hciIsImlhdCI6MTc0MDUwOTg4NywiZXhwIjoxNzQwNTk2Mjg3fQ.0vxRB8WgQaC_CXFbI_ziTxFiezJx0Vqa0cdm_Djbq10",
+											"type": "string"
+										}
+									]
+								},
+								"method": "PATCH",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"status\": \"Delivered\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{server}}/order/update-status/67be1c2a7fdde7f058951c2f",
+									"host": [
+										"{{server}}"
+									],
+									"path": [
+										"order",
+										"update-status",
+										"67be1c2a7fdde7f058951c2f"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "Create Order",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2IwZDRlMjliZjZmZmMzMGUwNjYzYzEiLCJmdWxsTmFtZSI6IlByYW5hdiBLdW1hciIsImlhdCI6MTc0MDUwOTg4NywiZXhwIjoxNzQwNTk2Mjg3fQ.0vxRB8WgQaC_CXFbI_ziTxFiezJx0Vqa0cdm_Djbq10",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"addressId\": \"67be1a53620a8732d0de1245\",\r\n    \"paymentMode\": \"COD\",\r\n    \"items\": [\r\n        {\r\n            \"itemId\": \"67b0fee45901a6c035ed2b1f\",\r\n            \"itemType\": \"Test\",\r\n            \"date\": \"2025-02-16\",\r\n            \"timeSlot\": \"03:00 AM - 04:00 AM\"\r\n\r\n        },\r\n        {\r\n            \"itemId\": \"67b0f3bd5901a6c035ed2b1d\",\r\n            \"itemType\": \"Medicine\",\r\n            \"quantity\": 2\r\n        }\r\n    ]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/order/create",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"order",
+								"create"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get My Orders",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2IwZDRlMjliZjZmZmMzMGUwNjYzYzEiLCJmdWxsTmFtZSI6IlByYW5hdiBLdW1hciIsImlhdCI6MTc0MDUwOTg4NywiZXhwIjoxNzQwNTk2Mjg3fQ.0vxRB8WgQaC_CXFbI_ziTxFiezJx0Vqa0cdm_Djbq10",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/order/my-orders",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"order",
+								"my-orders"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get Order",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2IwZDRlMjliZjZmZmMzMGUwNjYzYzEiLCJmdWxsTmFtZSI6IlByYW5hdiBLdW1hciIsImlhdCI6MTc0MDUwOTg4NywiZXhwIjoxNzQwNTk2Mjg3fQ.0vxRB8WgQaC_CXFbI_ziTxFiezJx0Vqa0cdm_Djbq10",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/order/67be1c2a7fdde7f058951c2f",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"order",
+								"67be1c2a7fdde7f058951c2f"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cancel Order",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2IwZDRlMjliZjZmZmMzMGUwNjYzYzEiLCJmdWxsTmFtZSI6IlByYW5hdiBLdW1hciIsImlhdCI6MTc0MDUwOTg4NywiZXhwIjoxNzQwNTk2Mjg3fQ.0vxRB8WgQaC_CXFbI_ziTxFiezJx0Vqa0cdm_Djbq10",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/order/cancel/67be1c2a7fdde7f058951c2f",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"order",
+								"cancel",
+								"67be1c2a7fdde7f058951c2f"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "Roght now no payment integration has been done"
 		}
 	],
 	"variable": [
