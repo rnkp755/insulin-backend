@@ -30,6 +30,8 @@ import geminiRouter from "./routes/gemini.route.js";
 import medicineRouter from "./routes/medicine.route.js";
 import testRouter from "./routes/test.route.js";
 import cartRouter from "./routes/cart.route.js";
+import addressRouter from "./routes/address.route.js";
+import orderRouter from "./routes/order.route.js";
 
 // Using Routes
 app.use("/api/v1/user", userRouter);
@@ -38,6 +40,8 @@ app.use("/api/v1/gemini", geminiRouter);
 app.use("/api/v1/medicine", medicineRouter);
 app.use("/api/v1/test", testRouter);
 app.use("/api/v1/cart", cartRouter);
+app.use("/api/v1/address", addressRouter);
+app.use("/api/v1/order", orderRouter);
 
 connectToMongo()
 	.then(() => {
