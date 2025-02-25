@@ -1,5 +1,5 @@
 import mongoose, { Schema } from "mongoose";
-
+import mongooseAggregatePaginate from "mongoose-aggregate-paginate-v2";
 const timeSlotEnums = [
 	"00:00 AM - 01:00 AM",
 	"01:00 AM - 02:00 AM",

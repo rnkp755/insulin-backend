@@ -74,7 +74,7 @@ const getMedicine = asyncHandler(async (req, res) => {
 		throw new APIError(404, "No Medicine Found");
 	}
 	return res
-		.status(201)
+		.status(200)
 		.json(
 			new APIResponse(201, medicine, "Medicine Found Successfully")
 		);
@@ -105,7 +105,7 @@ const getAllMedicines = asyncHandler(async (req, res) => {
 	}
 
 	return res
-		.status(201)
+		.status(200)
 		.json(
 			new APIResponse(
 				200,

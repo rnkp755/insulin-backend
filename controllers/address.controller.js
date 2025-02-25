@@ -62,20 +62,20 @@ const getAddresses = asyncHandler(async (req, res) => {
 });
 
 const getAddress = asyncHandler(async (req, res) => {
-	const { userId } = req.user;
+	const userId = req.user?._id.toString();
 	const address = await Address.findById(req.params.id);
 	if (!address || address.userId.toString() !== userId) {
-		throw new APIError(404, "Unauthorized access");
+		throw new APIError(404, "Unauthorized acces");
 	}
 	return res
 		.status(200)
 		.json(
-			new APIResponse(200, addresse, "Address fetched successfully")
+			new APIResponse(200, address, "Address fetched successfully")
 		);
 });
 
 const updateAddress = asyncHandler(async (req, res) => {
-	const { userId } = req.user;
+	const userId = req.user?._id.toString();
 	const address = await Address.findById(req.params.id);
 	if (!address || address.userId.toString() !== userId) {
 		throw new APIError(404, "Unauthorized access");
@@ -119,12 +119,12 @@ const updateAddress = asyncHandler(async (req, res) => {
 });
 
 const deleteAddress = asyncHandler(async (req, res) => {
-	const { userId } = req.user;
+	const userId = req.user?._id.toString();
 	const address = await Address.findById(req.params.id);
 	if (!address || address.userId.toString() !== userId) {
 		throw new APIError(404, "Unauthorized access");
 	}
-	await address.remove();
+	await Address.findByIdAndDelete(address._id);
 	return res
 		.status(200)
 		.json(new APIResponse(200, {}, "Address deleted successfully"));

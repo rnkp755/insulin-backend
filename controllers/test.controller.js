@@ -63,7 +63,7 @@ const getTest = asyncHandler(async (req, res) => {
 		throw new APIError(404, "No Test Found");
 	}
 	return res
-		.status(201)
+		.status(200)
 		.json(new APIResponse(201, test, "Test Found Successfully"));
 });
 
@@ -92,7 +92,7 @@ const getAllTests = asyncHandler(async (req, res) => {
 	}
 
 	return res
-		.status(201)
+		.status(200)
 		.json(
 			new APIResponse(
 				200,

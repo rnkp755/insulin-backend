@@ -4,16 +4,21 @@ import { APIResponse } from "../utils/APIResponse.js";
 import { Address } from "../models/address.model.js";
 import { User } from "../models/user.model.js";
 import { Order } from "../models/order.model.js";
+import { Test } from "../models/test.model.js";
 
 const createOrder = asyncHandler(async (req, res) => {
 	const { addressId, items, paymentMode } = req.body;
 	if (!addressId || !items || !paymentMode) {
 		throw new APIError(400, "Please provide all the required fields");
 	}
-	const { userId } = req.user?._id;
+	const userId = req.user?._id;
 	const user = await User.findById(userId);
 	const address = await Address.findById(addressId);
-	if (!user || !address || address.userId.toString() !== userId) {
+	if (
+		!user ||
+		!address ||
+		address.userId.toString() !== userId.toString()
+	) {
 		throw new APIError(404, "Unauthorized access");
 	}
 	let itemsToAdd = [];
@@ -27,16 +32,13 @@ const createOrder = asyncHandler(async (req, res) => {
 			);
 		}
 		const actualItem =
-			itemType === "Medicine"
-				? await Medicine.findById(itemId)
+			itemType === "Order"
+				? await Order.findById(itemId)
 				: await Test.findById(itemId);
 		if (!actualItem) {
 			throw new APIError(404, "Item not found");
 		}
-		if (
-			itemType === "Medicine" &&
-			quantity > actualItem.quantityInStock
-		) {
+		if (itemType === "Order" && quantity > actualItem.quantityInStock) {
 			throw new APIError(
 				400,
 				"Quantity exceeds the available stock"
@@ -49,7 +51,7 @@ const createOrder = asyncHandler(async (req, res) => {
 			);
 		}
 		totalAmount +=
-			itemType === "Medicine"
+			itemType === "Order"
 				? actualItem.price * quantity
 				: actualItem.price;
 		itemsToAdd.push({
@@ -74,7 +76,7 @@ const createOrder = asyncHandler(async (req, res) => {
 });
 
 const getMyOrders = asyncHandler(async (req, res) => {
-	const { userId } = req.user?._id;
+	const userId = req.user?._id;
 	const orders = await Order.find({ userId });
 	if (!orders) {
 		throw new APIError(404, "No orders found");
@@ -85,9 +87,16 @@ const getMyOrders = asyncHandler(async (req, res) => {
 });
 
 const getOrder = asyncHandler(async (req, res) => {
-	const { userId } = req.user?._id;
+	const userId = req.user?._id;
 	const order = await Order.findById(req.params.id);
-	if (!order || order.userId.toString() !== userId) {
+	if (!order) {
+		throw new APIError(404, "Order not found");
+	}
+	const user = await User.findById(userId);
+	if (
+		order.userId.toString() !== userId.toString() &&
+		user.role != "admin"
+	) {
 		throw new APIError(404, "Unauthorized access");
 	}
 	return res
@@ -96,13 +105,13 @@ const getOrder = asyncHandler(async (req, res) => {
 });
 
 const cancelOrder = asyncHandler(async (req, res) => {
-	const { userId } = req.user?._id;
+	const userId = req.user?._id.toString();
 	const order = await Order.findById(req.params.id);
 	if (!order || order.userId.toString() !== userId) {
 		throw new APIError(404, "Unauthorized access");
 	}
-	if (order.status !== "Placed") {
-		throw new APIError(400, "Order cannot be cancelled");
+	if (order.status === "Cancelled") {
+		throw new APIError(400, "Order already cancelled");
 	}
 	order.status = "Cancelled";
 	await order.save({ validateBeforeSave: true });
@@ -129,10 +138,24 @@ const getAllOrders = asyncHandler(async (req, res) => {
 			{ description: { $regex: query, $options: "i" } },
 		];
 	}
-	const orders = await Order.paginate(queryOptions, options);
+	const [orders, totalOrders] = await Promise.all([
+		Order.find(queryOptions, null, options),
+		Order.countDocuments(queryOptions),
+	]);
+
+	if (!orders || orders.length === 0) {
+		throw new APIError(404, "No Orders Found");
+	}
+
 	return res
 		.status(200)
-		.json(new APIResponse(200, orders, "Orders fetched successfully"));
+		.json(
+			new APIResponse(
+				200,
+				{ orders, totalOrders },
+				"Orders fetched successfully"
+			)
+		);
 });
 
 const updateOrderStatus = asyncHandler(async (req, res) => {

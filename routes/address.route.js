@@ -14,6 +14,6 @@ addressRouter.route("/add").post(verifyJWT, addAddress);
 addressRouter.route("/").get(verifyJWT, getAddresses);
 addressRouter.route("/:id").get(verifyJWT, getAddress);
 addressRouter.route("/update/:id").patch(verifyJWT, updateAddress);
-addressRouter.route("/delete/:id").delete(verifyJWT, deleteAddress);
+addressRouter.route("/delete/:id").post(verifyJWT, deleteAddress);
 
 export default addressRouter;
