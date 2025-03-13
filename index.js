@@ -32,6 +32,7 @@ import testRouter from "./routes/test.route.js";
 import cartRouter from "./routes/cart.route.js";
 import addressRouter from "./routes/address.route.js";
 import orderRouter from "./routes/order.route.js";
+import clinicRouter from "./routes/clinic.route.js";
 
 // Using Routes
 app.use("/api/v1/user", userRouter);
@@ -42,6 +43,7 @@ app.use("/api/v1/test", testRouter);
 app.use("/api/v1/cart", cartRouter);
 app.use("/api/v1/address", addressRouter);
 app.use("/api/v1/order", orderRouter);
+app.use("/api/v1/clinic", clinicRouter);
 
 connectToMongo()
 	.then(() => {

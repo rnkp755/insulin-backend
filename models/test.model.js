@@ -3,6 +3,11 @@ import mongooseAggregatePaginate from "mongoose-aggregate-paginate-v2";
 
 const testSchema = new Schema(
 	{
+		clinicId: {
+			type: Schema.Types.ObjectId,
+			ref: "Clinic",
+			required: true,
+		},
 		name: {
 			type: String,
 			required: true,

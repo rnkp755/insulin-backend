@@ -597,7 +597,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2IwZDRlMjliZjZmZmMzMGUwNjYzYzEiLCJmdWxsTmFtZSI6IlByYW5hdiBLdW1hciIsImlhdCI6MTczOTY0MjExMSwiZXhwIjoxNzM5NzI4NTExfQ.zZHQx8sRjmXkLZPjjOcGbcppMRG9ijOXHclM7FqBhiY",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2IwZDRlMjliZjZmZmMzMGUwNjYzYzEiLCJpYXQiOjE3NDE4OTIwMjIsImV4cCI6MTc0MTk3ODQyMn0.eH1mX43YaTJTq5FK4KruhxFZmC7Mb-OasI-Pzuk6FiA",
 									"type": "string"
 								}
 							]
@@ -625,12 +625,17 @@
 								{
 									"key": "images",
 									"type": "file",
-									"src": "c:\\Users\\RAUSHAN KUMAR THAKUR\\Downloads\\fifth.jpeg"
+									"src": "/C:/Users/RAUSHAN KUMAR THAKUR/Pictures/masculine-virat-kohli-picjvpm0ryrsq7tf.jpg"
 								},
 								{
 									"key": "images",
 									"type": "file",
-									"src": "c:\\Users\\RAUSHAN KUMAR THAKUR\\Downloads\\fourth.jpeg"
+									"src": "/C:/Users/RAUSHAN KUMAR THAKUR/Pictures/ISRO Quiz.jpg"
+								},
+								{
+									"key": "clinicId",
+									"value": "67d32ae1f392d22f20d2c621",
+									"type": "text"
 								}
 							]
 						},
@@ -668,7 +673,7 @@
 					"response": []
 				},
 				{
-					"name": "Get All Tests/ Search Medicine",
+					"name": "Get All Tests/ Search Test",
 					"request": {
 						"method": "GET",
 						"header": [],
@@ -1339,6 +1344,180 @@
 				}
 			],
 			"description": "Roght now no payment integration has been done"
+		},
+		{
+			"name": "Clinic",
+			"item": [
+				{
+					"name": "Add Clinic (Admin only)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2IwZDRlMjliZjZmZmMzMGUwNjYzYzEiLCJpYXQiOjE3NDE4OTIwMjIsImV4cCI6MTc0MTk3ODQyMn0.eH1mX43YaTJTq5FK4KruhxFZmC7Mb-OasI-Pzuk6FiA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Lilawati Hospital\",\r\n    \"address\": {\r\n        \"address\": \"Kali pahadi ke peechhe\",\r\n        \"city\": \"Syria\",\r\n        \"state\": \"Bihar\",\r\n        \"pincode\": \"843360\",\r\n        \"landmark\": \"Bola na kali pahadi ke peechhe\"\r\n    },\r\n    \"description\": \"Jinda logo ko mara jaata hai.\",\r\n    \"website\": \"https://google.com\",\r\n    \"openingTime\": {\r\n        \"hour\": 10,\r\n        \"minute\": 30,\r\n        \"meridian\": \"AM\"\r\n    },\r\n    \"closingTime\": {\r\n        \"hour\": 10,\r\n        \"minute\": 30,\r\n        \"meridian\": \"PM\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/clinic/add",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"clinic",
+								"add"
+							]
+						},
+						"description": "Carefully see the type of data in example input."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Clinic",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2IwZDRlMjliZjZmZmMzMGUwNjYzYzEiLCJpYXQiOjE3NDE4OTIwMjIsImV4cCI6MTc0MTk3ODQyMn0.eH1mX43YaTJTq5FK4KruhxFZmC7Mb-OasI-Pzuk6FiA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Lilawati Hospital\",\r\n    \"address\": {\r\n        \"address\": \"Kali pahadi ke peechhe\",\r\n        \"city\": \"Syria\",\r\n        \"state\": \"Bihar\",\r\n        \"pincode\": \"843360\",\r\n        \"landmark\": \"Bola na kali pahadi ke peechhe\"\r\n    },\r\n    \"description\": \"Jinda logo ko mara jaata hai.\",\r\n    \"website\": \"https://google.com\",\r\n    \"openingTime\": {\r\n        \"hour\": 10,\r\n        \"minute\": 30,\r\n        \"meridian\": \"AM\"\r\n    },\r\n    \"closingTime\": {\r\n        \"hour\": 10,\r\n        \"minute\": 30,\r\n        \"meridian\": \"PM\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/clinic/67d32ae1f392d22f20d2c621",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"clinic",
+								"67d32ae1f392d22f20d2c621"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get All Clinics  / Search Clinic",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2IwZDRlMjliZjZmZmMzMGUwNjYzYzEiLCJpYXQiOjE3NDE4OTIwMjIsImV4cCI6MTc0MTk3ODQyMn0.eH1mX43YaTJTq5FK4KruhxFZmC7Mb-OasI-Pzuk6FiA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"Lilawati Hospital\",\r\n    \"address\": {\r\n        \"address\": \"Kali pahadi ke peechhe\",\r\n        \"city\": \"Syria\",\r\n        \"state\": \"Bihar\",\r\n        \"pincode\": \"843360\",\r\n        \"landmark\": \"Bola na kali pahadi ke peechhe\"\r\n    },\r\n    \"description\": \"Jinda logo ko mara jaata hai.\",\r\n    \"website\": \"https://google.com\",\r\n    \"openingTime\": {\r\n        \"hour\": 10,\r\n        \"minute\": 30,\r\n        \"meridian\": \"AM\"\r\n    },\r\n    \"closingTime\": {\r\n        \"hour\": 10,\r\n        \"minute\": 30,\r\n        \"meridian\": \"PM\"\r\n    }\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{server}}/clinic?query=Lila",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"clinic"
+							],
+							"query": [
+								{
+									"key": "query",
+									"value": "Lila"
+								}
+							]
+						},
+						"description": "Search Clinic can be done using this route"
+					},
+					"response": []
+				},
+				{
+					"name": "Update Clinic (Admin only)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2IwZDRlMjliZjZmZmMzMGUwNjYzYzEiLCJpYXQiOjE3NDE4OTIwMjIsImV4cCI6MTc0MTk3ODQyMn0.eH1mX43YaTJTq5FK4KruhxFZmC7Mb-OasI-Pzuk6FiA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "description",
+									"value": "Jinda logo ko mara jaata hai phir paise le lete hain",
+									"type": "text"
+								},
+								{
+									"key": "images",
+									"type": "file",
+									"src": "/C:/Users/RAUSHAN KUMAR THAKUR/Pictures/masculine-virat-kohli-picjvpm0ryrsq7tf.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{server}}/clinic/update/67d32ae1f392d22f20d2c621",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"clinic",
+								"update",
+								"67d32ae1f392d22f20d2c621"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"description": "The flow is:\n\n- First Admin create a Clinic\n    \n- Then Create Test within that specific clinic."
 		}
 	],
 	"variable": [

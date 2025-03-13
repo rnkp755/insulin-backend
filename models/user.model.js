@@ -3,37 +3,11 @@ import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
 const userSchema = new Schema(
 	{
-		firstName: {
+		fullName: {
 			type: String,
+			required: true,
 			trim: true,
-			minLength: [
-				2,
-				"First name must be at least 2 characters long",
-			],
-		},
-		lastName: {
-			type: String,
-			trim: true,
-			minLength: [
-				3,
-				"Last name must be at least 2 characters long",
-			],
-		},
-		mobile: {
-			type: String,
-			minlength: 10,
-			maxlength: 10,
-			trim: true,
-			match: [/^[0-9]{10}$/, "Invalid mobile number"],
-		},
-		gender: {
-			type: String,
-			enum: ["male", "female", "other"],
-		},
-		age: {
-			type: Number,
-			min: [0, "Age must be at least 0"],
-			max: [120, "Age must be at most 120"],
+			minLength: [3, "Name must be at least 3 characters long"],
 		},
 		email: {
 			type: String,
@@ -47,70 +21,24 @@ const userSchema = new Schema(
 		},
 		password: {
 			type: String,
-		},
-		state: {
-			type: String,
-			enum: [
-				"Andhra Pradesh",
-				"Arunachal Pradesh",
-				"Assam",
-				"Bihar",
-				"Chhattisgarh",
-				"Goa",
-				"Gujarat",
-				"Haryana",
-				"Himachal Pradesh",
-				"Jharkhand",
-				"Karnataka",
-				"Kerala",
-				"Madhya Pradesh",
-				"Maharashtra",
-				"Manipur",
-				"Meghalaya",
-				"Mizoram",
-				"Nagaland",
-				"Odisha",
-				"Punjab",
-				"Rajasthan",
-				"Sikkim",
-				"Tamil Nadu",
-				"Telangana",
-				"Tripura",
-				"Uttar Pradesh",
-				"Uttarakhand",
-				"West Bengal",
+			required: true,
+			minLength: [8, "Password must be at least 8 characters long"],
+			maxLength: [
+				16,
+				"Password must be at most 16 characters long",
 			],
-		},
-		pincode: {
-			type: String,
-			minlength: 6,
-			maxlength: 6,
-			trim: true,
-			match: [/^[0-9]{6}$/, "Invalid pincode"],
-		},
-		allowPasswordReset: {
-			type: Boolean,
-			default: false,
 		},
 		role: {
 			type: String,
 			enum: ["user", "admin"],
 			default: "user",
 		},
-		quiz: [
-			{
-				type: String,
-			},
-		],
 		refreshToken: {
 			type: String,
 		},
 	},
 	{ timestamps: true }
 );
-
-// Special indexinng for mobile number
-userSchema.index({ mobile: 1 }, { unique: true, sparse: true });
 
 userSchema.pre("save", async function (next) {
 	if (this.isModified("password")) {
@@ -127,7 +55,7 @@ userSchema.methods.generateAccessToken = async function () {
 	return jwt.sign(
 		{
 			_id: this._id,
-			fullName: this.firstName + " " + this.lastName,
+			fullName: this.fullName,
 		},
 		process.env.ACCESS_TOKEN_SECRET,
 		{
