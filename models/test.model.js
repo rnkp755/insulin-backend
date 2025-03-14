@@ -6,7 +6,7 @@ const testSchema = new Schema(
 		clinicId: {
 			type: Schema.Types.ObjectId,
 			ref: "Clinic",
-			required: true,
+			default: null,
 		},
 		name: {
 			type: String,

@@ -3,16 +3,13 @@ import { APIError } from "../utils/apiError.js";
 import { APIResponse } from "../utils/APIResponse.js";
 import { Test } from "../models/test.model.js";
 import { User } from "../models/user.model.js";
-import { Clinic } from "../models/clinic.model.js";
 import { uploadOnCloudinary } from "../utils/Cloudinary.js";
 
 const addTest = asyncHandler(async (req, res) => {
-	const { clinicId, name, description, price } = req.body;
+	const { name, description, price } = req.body;
 	if (
-		[clinicId, name, description, price].includes(undefined) ||
-		[clinicId, name, description, price].some(
-			(field) => field.trim() === ""
-		) ||
+		[name, description, price].includes(undefined) ||
+		[name, description, price].some((field) => field.trim() === "") ||
 		price < 0
 	) {
 		throw new APIError(400, "Please provide all the required fields");
@@ -27,11 +24,6 @@ const addTest = asyncHandler(async (req, res) => {
 		throw new APIError(404, "Unauthorized Access");
 	}
 
-	const clinic = await Clinic.findById(clinicId);
-	if (!clinic) {
-		throw new APIError(404, "No Clinic Found");
-	}
-
 	const imageUploadPromises = req.files.map(async (file) => {
 		const response = await uploadOnCloudinary(file.path);
 		if (!response) {
@@ -42,7 +34,6 @@ const addTest = asyncHandler(async (req, res) => {
 	const images = await Promise.all(imageUploadPromises);
 
 	const test = new Test({
-		clinicId,
 		name,
 		description,
 		price,
@@ -57,9 +48,6 @@ const addTest = asyncHandler(async (req, res) => {
 	if (!existedTest) {
 		throw new APIError(500, "Failed to save test");
 	}
-
-	clinic.medicalServices.push(existedTest._id);
-	await clinic.save({ validateBeforeSave: true });
 
 	return res
 		.status(201)

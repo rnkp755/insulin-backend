@@ -3,6 +3,7 @@ import { APIError } from "../utils/apiError.js";
 import { APIResponse } from "../utils/APIResponse.js";
 import { User } from "../models/user.model.js";
 import { Clinic } from "../models/clinic.model.js";
+import { Test } from "../models/test.model.js";
 import { uploadOnCloudinary } from "../utils/Cloudinary.js";
 
 const addClinic = asyncHandler(async (req, res) => {
@@ -61,6 +62,19 @@ const addClinic = asyncHandler(async (req, res) => {
 
 	if (!existedClinic) {
 		throw new APIError(500, "Failed to save clinic");
+	}
+
+	if (medicalServices && medicalServices.length > 0) {
+		medicalServices.forEach(async (serviceId) => {
+			const test = await Test.findByIdAndUpdate(
+				serviceId,
+				{ clinicId: existedClinic._id },
+				{ new: true, runValidators: true }
+			);
+			if (!test) {
+				throw new APIError(500, "Failed to save test");
+			}
+		});
 	}
 
 	return res
@@ -137,9 +151,14 @@ const updateClinic = asyncHandler(async (req, res) => {
 		closingTime,
 	} = req.body;
 
-	console.log(req.body);
-
-	if (!name && !address && !description && !openingTime && !closingTime) {
+	if (
+		!name &&
+		!address &&
+		!description &&
+		!openingTime &&
+		!closingTime &&
+		medicalServices.length === 0
+	) {
 		throw new APIError(
 			400,
 			"Please provide at least one field to update"
@@ -169,6 +188,10 @@ const updateClinic = asyncHandler(async (req, res) => {
 		images = await Promise.all(imageUploadPromises);
 	}
 
+	const prevMedicalServices = clinic.medicalServices.map((id) =>
+		id.toString()
+	);
+
 	if (name) {
 		clinic.name = name;
 	}
@@ -195,6 +218,52 @@ const updateClinic = asyncHandler(async (req, res) => {
 	}
 
 	await clinic.save({ validateBeforeSave: true });
+
+	if (medicalServices && medicalServices.length > 0) {
+		const servicesToAdd = medicalServices.filter(
+			(serviceId) => !prevMedicalServices.includes(serviceId)
+		);
+		const servicesToRemove = prevMedicalServices.filter(
+			(serviceId) => !medicalServices.includes(serviceId)
+		);
+
+		console.log("Prev:", prevMedicalServices);
+		console.log("Add:", servicesToAdd, "\nRemove: ", servicesToRemove);
+
+		// Add new services
+		await Promise.all(
+			servicesToAdd.map(async (serviceId) => {
+				const test = await Test.findByIdAndUpdate(
+					serviceId,
+					{ clinicId: clinic._id },
+					{ new: true, runValidators: true }
+				);
+				if (!test) {
+					throw new APIError(
+						500,
+						`Failed to assign test ${serviceId}`
+					);
+				}
+			})
+		);
+
+		// Remove unlinked services
+		await Promise.all(
+			servicesToRemove.map(async (serviceId) => {
+				const test = await Test.findByIdAndUpdate(
+					serviceId,
+					{ clinicId: null },
+					{ new: true, runValidators: true }
+				);
+				if (!test) {
+					throw new APIError(
+						500,
+						`Failed to unassign test ${serviceId}`
+					);
+				}
+			})
+		);
+	}
 
 	return res
 		.status(200)

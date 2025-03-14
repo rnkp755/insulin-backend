@@ -609,7 +609,7 @@
 							"formdata": [
 								{
 									"key": "name",
-									"value": "Blood Test",
+									"value": "Ek aur Blood Test",
 									"type": "text"
 								},
 								{
@@ -630,12 +630,10 @@
 								{
 									"key": "images",
 									"type": "file",
-									"src": "/C:/Users/RAUSHAN KUMAR THAKUR/Pictures/ISRO Quiz.jpg"
-								},
-								{
-									"key": "clinicId",
-									"value": "67d32ae1f392d22f20d2c621",
-									"type": "text"
+									"src": [
+										"/C:/Users/RAUSHAN KUMAR THAKUR/Pictures/ISRO Quiz.jpg",
+										"/C:/Users/RAUSHAN KUMAR THAKUR/Pictures/ISRO Quiz.jpg"
+									]
 								}
 							]
 						},
@@ -1365,7 +1363,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"Lilawati Hospital\",\r\n    \"address\": {\r\n        \"address\": \"Kali pahadi ke peechhe\",\r\n        \"city\": \"Syria\",\r\n        \"state\": \"Bihar\",\r\n        \"pincode\": \"843360\",\r\n        \"landmark\": \"Bola na kali pahadi ke peechhe\"\r\n    },\r\n    \"description\": \"Jinda logo ko mara jaata hai.\",\r\n    \"website\": \"https://google.com\",\r\n    \"openingTime\": {\r\n        \"hour\": 10,\r\n        \"minute\": 30,\r\n        \"meridian\": \"AM\"\r\n    },\r\n    \"closingTime\": {\r\n        \"hour\": 10,\r\n        \"minute\": 30,\r\n        \"meridian\": \"PM\"\r\n    }\r\n}",
+							"raw": "{\r\n    \"name\": \"Lilawati Hospital\",\r\n    \"medicalServices\": [\"67d3f8518befdcdc1f84e6f4\"],\r\n    \"address\": {\r\n        \"address\": \"Kali pahadi ke peechhe\",\r\n        \"city\": \"Syria\",\r\n        \"state\": \"Bihar\",\r\n        \"pincode\": \"843360\",\r\n        \"landmark\": \"Bola na kali pahadi ke peechhe\"\r\n    },\r\n    \"description\": \"Jinda logo ko mara jaata hai.\",\r\n    \"website\": \"https://google.com\",\r\n    \"openingTime\": {\r\n        \"hour\": 10,\r\n        \"minute\": 30,\r\n        \"meridian\": \"AM\"\r\n    },\r\n    \"closingTime\": {\r\n        \"hour\": 10,\r\n        \"minute\": 30,\r\n        \"meridian\": \"PM\"\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1488,31 +1486,26 @@
 						"method": "PATCH",
 						"header": [],
 						"body": {
-							"mode": "formdata",
-							"formdata": [
-								{
-									"key": "description",
-									"value": "Jinda logo ko mara jaata hai phir paise le lete hain",
-									"type": "text"
-								},
-								{
-									"key": "images",
-									"type": "file",
-									"src": "/C:/Users/RAUSHAN KUMAR THAKUR/Pictures/masculine-virat-kohli-picjvpm0ryrsq7tf.jpg"
+							"mode": "raw",
+							"raw": "{\r\n    \"medicalServices\": [\"67d3f9104a00dc81a8fea9e7\", \"67d3f8518befdcdc1f84e6f4\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
 								}
-							]
+							}
 						},
 						"url": {
-							"raw": "{{server}}/clinic/update/67d32ae1f392d22f20d2c621",
+							"raw": "{{server}}/clinic/update/67d3fa33d300b7be97df71fd",
 							"host": [
 								"{{server}}"
 							],
 							"path": [
 								"clinic",
 								"update",
-								"67d32ae1f392d22f20d2c621"
+								"67d3fa33d300b7be97df71fd"
 							]
-						}
+						},
+						"description": "This route handels clinic update.\n\n- While updating medicalServices, you are expected to pass \\`ids\\` of all tests. That array will be overridden.\n    \n- Clinic images update are also handled, that can be passed through \\`from-data\\`"
 					},
 					"response": []
 				}
