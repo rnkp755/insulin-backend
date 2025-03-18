@@ -20,6 +20,9 @@ const verifySignature = asyncHandler(async (req, res) => {
 
     const expectedSignature = crypto.createHmac("sha256", process.env.RAZORPAY_WEBHOOK_SECRET).update(body).digest("hex");
 
+    console.log(signature, expectedSignature);
+
+
     if(signature !== expectedSignature) {
         throw new APIError(400, "Invalid signature");
     }
