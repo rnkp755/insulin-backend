@@ -1,8 +1,11 @@
-import { Router } from "express";
+import express, { Router } from "express";
 import { verifySignature } from "../webhooks/razorpay.webhook.js";
 
 const webhookRouter = Router();
 
-webhookRouter.route("/razorpay").post(verifySignature);
-
+webhookRouter.post(
+  "/razorpay",
+  express.raw({ type: 'application/json' }),
+  verifySignature
+);
 export default webhookRouter;
