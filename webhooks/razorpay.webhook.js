@@ -15,8 +15,8 @@ const transporter = nodemailer.createTransport({
 });
 
 const verifySignature = asyncHandler(async (req, res) => {
-    const body = await req.body;
-    const signature = req.headers.get("X-Razorpay-Signature");
+    const body = req.body;
+    const signature = req.headers["X-Razorpay-Signature"];
 
     const expectedSignature = crypto.createHmac("sha256", process.env.RAZORPAY_WEBHOOK_SECRET).update(body).digest("hex");
 
@@ -24,7 +24,7 @@ const verifySignature = asyncHandler(async (req, res) => {
         throw new APIError(400, "Invalid signature");
     }
 
-    const event = JSON.parse(body);
+    const event = JSON.parse(body.toString('utf8'));
 
     let order = null;
 
