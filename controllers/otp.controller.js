@@ -3,7 +3,7 @@ import { OTP } from "../models/otp.model.js";
 import { User } from "../models/user.model.js";
 import nodemailer from "nodemailer";
 import crypto from "crypto";
-import { APIError } from "../utils/apiError.js";
+import { APIError } from "../utils/APIError.js";
 import { APIResponse } from "../utils/APIResponse.js";
 import dotenv from "dotenv";
 
