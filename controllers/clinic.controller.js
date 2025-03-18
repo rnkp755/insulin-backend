@@ -227,9 +227,6 @@ const updateClinic = asyncHandler(async (req, res) => {
 			(serviceId) => !medicalServices.includes(serviceId)
 		);
 
-		console.log("Prev:", prevMedicalServices);
-		console.log("Add:", servicesToAdd, "\nRemove: ", servicesToRemove);
-
 		// Add new services
 		await Promise.all(
 			servicesToAdd.map(async (serviceId) => {

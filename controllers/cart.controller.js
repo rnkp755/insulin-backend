@@ -180,7 +180,6 @@ const updateCart = asyncHandler(async (req, res) => {
 	}
 
 	const item = cart.item[itemIndex];
-	console.log(item);
 	let oldAmount =
 		item.itemType === "Medicine"
 			? medicine.price * item.quantity

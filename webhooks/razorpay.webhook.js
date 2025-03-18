@@ -19,14 +19,10 @@ const verifySignature = asyncHandler(async (req, res) => {
     const signature = req.headers["x-razorpay-signature"];
 
     if (!Buffer.isBuffer(body)) {
-      console.error("req.body is not a Buffer!");
       throw new APIError(400, "Invalid body type");
     }
 
     const expectedSignature = crypto.createHmac("sha256", process.env.RAZORPAY_WEBHOOK_SECRET).update(body).digest("hex");
-
-    console.log(signature, expectedSignature);
-
 
     if(signature !== expectedSignature) {
         throw new APIError(400, "Invalid signature");

@@ -91,8 +91,6 @@ const createOrder = asyncHandler(async (req, res) => {
 		order.razorpayOrderId = razorpayOrder.id;
 	}
 
-	console.log(order);
-
 	await order.save({ validateBeforeSave: true });
 
 	return res
