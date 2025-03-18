@@ -95,13 +95,19 @@ const orderSchema = new Schema(
 		},
 		paymentMode: {
 			type: String,
-			enum: ["COD", "UPI", "Card"],
+			enum: ["COD", "ONLINE"],
 			required: true,
 		},
 		paymentStatus: {
 			type: String,
 			enum: ["Pending", "Success", "Failed"],
 			default: "Pending",
+		},
+		razorpayOrderId: {
+			type: String,
+		},
+		razorpayPaymentId: {
+			type: String,
 		},
 	},
 	{ timestamps: true }
