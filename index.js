@@ -20,8 +20,14 @@ app.use(
 		limit: "16kb",
 	})
 );
-app.use(express.json());
 app.use(cookieparser());
+
+// IMporting Webhook
+import webhookRouter from "./routes/webhook.route.js";
+app.use("/api/v1/webhook", webhookRouter);
+
+
+app.use(express.json());
 
 // Importing Routes
 import userRouter from "./routes/user.route.js";
@@ -33,7 +39,6 @@ import cartRouter from "./routes/cart.route.js";
 import addressRouter from "./routes/address.route.js";
 import orderRouter from "./routes/order.route.js";
 import clinicRouter from "./routes/clinic.route.js";
-import webhookRouter from "./routes/webhook.route.js";
 
 // Using Routes
 app.use("/api/v1/user", userRouter);
@@ -45,7 +50,6 @@ app.use("/api/v1/cart", cartRouter);
 app.use("/api/v1/address", addressRouter);
 app.use("/api/v1/order", orderRouter);
 app.use("/api/v1/clinic", clinicRouter);
-app.use("/api/v1/webhook", webhookRouter);
 
 connectToMongo()
 	.then(() => {
