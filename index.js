@@ -22,8 +22,14 @@ app.use(
 		limit: "10mb",
 	})
 );
-app.use(express.json());
 app.use(cookieparser());
+
+// IMporting Webhook
+import webhookRouter from "./routes/webhook.route.js";
+app.use("/api/v1/webhook", webhookRouter);
+
+
+app.use(express.json());
 
 // Importing Routes
 import userRouter from "./routes/user.route.js";

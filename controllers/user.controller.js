@@ -1,5 +1,5 @@
 import asyncHandler from "../utils/asyncHandler.js";
-import { APIError } from "../utils/apiError.js";
+import { APIError } from "../utils/APIError.js";
 import { APIResponse } from "../utils/APIResponse.js";
 import { User } from "../models/user.model.js";
 import jwt from "jsonwebtoken";
@@ -105,7 +105,6 @@ const registerUser = asyncHandler(async (req, res) => {
 
 const loginUser = asyncHandler(async (req, res) => {
 	const { email, password } = req.body;
-	console.log("Req body", req.body);
 
 	if (!email) {
 		throw new APIError(400, "Email is required");
@@ -135,7 +134,6 @@ const loginUser = asyncHandler(async (req, res) => {
 	delete loggedInUser["updatedAt"];
 	delete loggedInUser["__v"];
 
-	console.log(loggedInUser);
 
 	const options = {
 		httpOnly: true,
@@ -162,7 +160,6 @@ const loginUser = asyncHandler(async (req, res) => {
 });
 
 const logoutUser = asyncHandler(async (req, res) => {
-	console.log("Logout ", req.user._id);
 	// Output : Logout  undefined
 	const user = await User.findByIdAndUpdate(
 		req.user._id,
@@ -212,7 +209,6 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
 	try {
 		const { newAccessToken, newRefreshToken } =
 			await generateAccessAndRefreshTokens(user._id);
-		console.log("New Access Token", newAccessToken);
 
 		const options = {
 			httpOnly: true,
@@ -256,7 +252,6 @@ const changeUserPassword = asyncHandler(async (req, res) => {
 		);
 	}
 
-	console.log("Change Password", req.user._id);
 	const user = await User.findById(req.user?._id);
 	if (!user.isPasswordcorrect(oldPassword))
 		throw new APIError(400, "Old Password is incorrect");
@@ -271,7 +266,6 @@ const changeUserPassword = asyncHandler(async (req, res) => {
 
 const resetPassword = asyncHandler(async (req, res) => {
 	const { email, newPassword } = req.body;
-	console.log("Reset Password", req.body);
 
 	if (!email) {
 		throw new APIError(400, "Email is required");

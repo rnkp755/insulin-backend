@@ -1,5 +1,5 @@
 import asyncHandler from "../utils/asyncHandler.js";
-import { APIError } from "../utils/apiError.js";
+import { APIError } from "../utils/APIError.js";
 import { APIResponse } from "../utils/APIResponse.js";
 import { User } from "../models/user.model.js";
 import { Clinic } from "../models/clinic.model.js";
@@ -226,9 +226,6 @@ const updateClinic = asyncHandler(async (req, res) => {
 		const servicesToRemove = prevMedicalServices.filter(
 			(serviceId) => !medicalServices.includes(serviceId)
 		);
-
-		console.log("Prev:", prevMedicalServices);
-		console.log("Add:", servicesToAdd, "\nRemove: ", servicesToRemove);
 
 		// Add new services
 		await Promise.all(

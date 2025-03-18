@@ -1,5 +1,5 @@
 import asyncHandler from "../utils/asyncHandler.js";
-import { APIError } from "../utils/apiError.js";
+import { APIError } from "../utils/APIError.js";
 import { APIResponse } from "../utils/APIResponse.js";
 import { Medicine } from "../models/medicine.model.js";
 import { Test } from "../models/test.model.js";
@@ -180,7 +180,6 @@ const updateCart = asyncHandler(async (req, res) => {
 	}
 
 	const item = cart.item[itemIndex];
-	console.log(item);
 	let oldAmount =
 		item.itemType === "Medicine"
 			? medicine.price * item.quantity

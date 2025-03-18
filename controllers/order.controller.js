@@ -1,10 +1,12 @@
 import asyncHandler from "../utils/asyncHandler.js";
-import { APIError } from "../utils/apiError.js";
+import { APIError } from "../utils/APIError.js";
 import { APIResponse } from "../utils/APIResponse.js";
 import { Address } from "../models/address.model.js";
 import { User } from "../models/user.model.js";
+import { Medicine } from "../models/medicine.model.js";
 import { Order } from "../models/order.model.js";
 import { Test } from "../models/test.model.js";
+import Razorpay from "razorpay";
 
 const createOrder = asyncHandler(async (req, res) => {
 	const { addressId, items, paymentMode } = req.body;
@@ -32,13 +34,13 @@ const createOrder = asyncHandler(async (req, res) => {
 			);
 		}
 		const actualItem =
-			itemType === "Order"
-				? await Order.findById(itemId)
+			itemType === "Medicine"
+				? await Medicine.findById(itemId)
 				: await Test.findById(itemId);
 		if (!actualItem) {
 			throw new APIError(404, "Item not found");
 		}
-		if (itemType === "Order" && quantity > actualItem.quantityInStock) {
+		if (itemType === "Medicine" && quantity > actualItem.quantityInStock) {
 			throw new APIError(
 				400,
 				"Quantity exceeds the available stock"
@@ -51,7 +53,7 @@ const createOrder = asyncHandler(async (req, res) => {
 			);
 		}
 		totalAmount +=
-			itemType === "Order"
+			itemType === "Medicine"
 				? actualItem.price * quantity
 				: actualItem.price;
 		itemsToAdd.push({
@@ -62,14 +64,35 @@ const createOrder = asyncHandler(async (req, res) => {
 			timeSlot,
 		});
 	}
-	const order = new Order({
+	let order = new Order({
 		userId,
 		addressId,
 		items: itemsToAdd,
 		totalAmount,
 		paymentMode,
 	});
+
+	// Handle Razorpay payment here
+	if (paymentMode === "ONLINE") {
+		const razorpay = new Razorpay({
+			key_id: process.env.RAZORPAY_KEY_ID,
+			key_secret: process.env.RAZORPAY_KEY_SECRET,
+		});
+
+		const razorpayOrder = await razorpay.orders.create({
+			amount: totalAmount * 100,
+			currency: "INR",
+			receipt: `${userId.toString()}-${new Date().getTime()}`,
+			notes: {
+				userId: userId.toString(),
+			}
+		});
+
+		order.razorpayOrderId = razorpayOrder.id;
+	}
+
 	await order.save({ validateBeforeSave: true });
+
 	return res
 		.status(201)
 		.json(new APIResponse(201, order, "Order placed successfully"));
@@ -159,16 +182,29 @@ const getAllOrders = asyncHandler(async (req, res) => {
 });
 
 const updateOrderStatus = asyncHandler(async (req, res) => {
-	const { status } = req.body;
-	if (!status) {
-		throw new APIError(400, "Please provide the status");
+	const { status, type } = req.body;
+	if (!status || !type) {
+		throw new APIError(400, "Please provide the status & type");
 	}
-	const order = await Order.findById(req.params.id);
+
+	let updateField = {};
+
+	if (type === "paymentStatus") {
+		updateField.paymentStatus = status;
+	} else if (type === "orderStatus") {
+		updateField.status = status;
+	} else {
+		throw new APIError(400, "Invalid type provided. Please use 'paymentStatus' or 'orderStatus'");
+	}
+
+	const order = await Order.findByIdAndUpdate(
+		{ _id: req.params.id },
+		updateField,
+		{ new: true }
+	);
 	if (!order) {
 		throw new APIError(404, "Order not found");
 	}
-	order.status = status;
-	await order.save({ validateBeforeSave: true });
 	return res
 		.status(200)
 		.json(

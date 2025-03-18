@@ -1153,7 +1153,7 @@
 									"bearer": [
 										{
 											"key": "token",
-											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2IwZDRlMjliZjZmZmMzMGUwNjYzYzEiLCJmdWxsTmFtZSI6IlByYW5hdiBLdW1hciIsImlhdCI6MTc0MDUwOTg4NywiZXhwIjoxNzQwNTk2Mjg3fQ.0vxRB8WgQaC_CXFbI_ziTxFiezJx0Vqa0cdm_Djbq10",
+											"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2IwZDRlMjliZjZmZmMzMGUwNjYzYzEiLCJpYXQiOjE3NDIyODY3NjAsImV4cCI6MTc0MjM3MzE2MH0.7CuoXcTUCVjE_YhM28bL6D3h8HOWhlrVnYBa3gdlmBQ",
 											"type": "string"
 										}
 									]
@@ -1162,7 +1162,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"status\": \"Delivered\"\r\n}",
+									"raw": "{\r\n    \"status\": \"Success\",\r\n    \"type\": \"paymentStatus\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1170,16 +1170,17 @@
 									}
 								},
 								"url": {
-									"raw": "{{server}}/order/update-status/67be1c2a7fdde7f058951c2f",
+									"raw": "{{server}}/order/update-status/67d92fc0c965f3988a980dc5",
 									"host": [
 										"{{server}}"
 									],
 									"path": [
 										"order",
 										"update-status",
-										"67be1c2a7fdde7f058951c2f"
+										"67d92fc0c965f3988a980dc5"
 									]
-								}
+								},
+								"description": "Req Body:\n\n- For Payment Updates (In case of COD)\n    \n\n``` json\n{\n    \"status\": \"Success\",\n    \"type\": \"paymentStatus\"\n}\n\n ```\n\n- For Order Delivery Updates:\n    \n\n``` json\n{\n    \"status\": \"Delivered\",\n    \"type\": \"orderStatus\"\n}\n\n ```"
 							},
 							"response": []
 						}
@@ -1193,7 +1194,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2IwZDRlMjliZjZmZmMzMGUwNjYzYzEiLCJmdWxsTmFtZSI6IlByYW5hdiBLdW1hciIsImlhdCI6MTc0MDUwOTg4NywiZXhwIjoxNzQwNTk2Mjg3fQ.0vxRB8WgQaC_CXFbI_ziTxFiezJx0Vqa0cdm_Djbq10",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2IwZDRlMjliZjZmZmMzMGUwNjYzYzEiLCJpYXQiOjE3NDIyODY3NjAsImV4cCI6MTc0MjM3MzE2MH0.7CuoXcTUCVjE_YhM28bL6D3h8HOWhlrVnYBa3gdlmBQ",
 									"type": "string"
 								}
 							]
@@ -1202,7 +1203,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"addressId\": \"67be1a53620a8732d0de1245\",\r\n    \"paymentMode\": \"COD\",\r\n    \"items\": [\r\n        {\r\n            \"itemId\": \"67b0fee45901a6c035ed2b1f\",\r\n            \"itemType\": \"Test\",\r\n            \"date\": \"2025-02-16\",\r\n            \"timeSlot\": \"03:00 AM - 04:00 AM\"\r\n\r\n        },\r\n        {\r\n            \"itemId\": \"67b0f3bd5901a6c035ed2b1d\",\r\n            \"itemType\": \"Medicine\",\r\n            \"quantity\": 2\r\n        }\r\n    ]\r\n}",
+							"raw": "{\r\n    \"addressId\": \"67be1a53620a8732d0de1245\",\r\n    \"paymentMode\": \"ONLINE\",\r\n    \"items\": [\r\n        {\r\n            \"itemId\": \"67d3f8518befdcdc1f84e6f4\",\r\n            \"itemType\": \"Test\",\r\n            \"date\": \"2025-03-18\",\r\n            \"timeSlot\": \"03:00 AM - 04:00 AM\"\r\n\r\n        },\r\n        {\r\n            \"itemId\": \"67b0f3bd5901a6c035ed2b1d\",\r\n            \"itemType\": \"Medicine\",\r\n            \"quantity\": 2\r\n        }\r\n    ]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -1218,7 +1219,8 @@
 								"order",
 								"create"
 							]
-						}
+						},
+						"description": "Flow of Create Order and Payment:\n\n1. First hit this route. Order will be created in database.\n    \n2. Payment page will be opened on Frontend.\n    \n3. As soon as server detects payment status, It'll automatically be updated in db."
 					},
 					"response": []
 				},
