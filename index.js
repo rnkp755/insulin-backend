@@ -10,14 +10,16 @@ const app = express();
 
 app.use(
 	cors({
-		origin: "*",
-		Credentials: true,
+		origin: true,
+		credentials: true,
+		methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS', 'PATCH'],
+		allowedHeaders: ['Content-Type', 'Authorization']
 	})
 );
 app.use(
 	express.urlencoded({
 		extended: true,
-		limit: "16kb",
+		limit: "10mb",
 	})
 );
 app.use(express.json());

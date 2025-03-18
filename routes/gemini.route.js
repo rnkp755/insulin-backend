@@ -4,6 +4,6 @@ import { verifyJWT } from "../middlewares/auth.middleware.js";
 
 const geminiRouter = Router();
 
-geminiRouter.route("/ask").post(verifyJWT, askToGemini);
+geminiRouter.route("/ask").post( askToGemini);
 
 export default geminiRouter;
