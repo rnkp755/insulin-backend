@@ -16,7 +16,7 @@ const transporter = nodemailer.createTransport({
 
 const verifySignature = asyncHandler(async (req, res) => {
     const body = req.body;
-    const signature = req.headers["X-Razorpay-Signature"];
+    const signature = req.headers["x-razorpay-signature"];
 
     const expectedSignature = crypto.createHmac("sha256", process.env.RAZORPAY_WEBHOOK_SECRET).update(body).digest("hex");
 
