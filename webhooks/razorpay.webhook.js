@@ -50,7 +50,6 @@ const verifySignature = asyncHandler(async (req, res) => {
         paymentFailureMail(user.email, order);
     } else if (event.event === "refund.created") {
         const payment = event.payload.payment.entity;
-        console.log("Refund Created Webhook payment", payment);
         order = await Order.findOneAndUpdate(
             { razorpayPaymentId: payment.id },
             {
@@ -64,7 +63,6 @@ const verifySignature = asyncHandler(async (req, res) => {
         refundCreationMail(user.email, order.totalAmount);
     } else if (event.event === "refund.failed") {
         const payment = event.payload.payment.entity;
-        console.log("Refund Failed Webhook payment", payment);
         order = await Order.findOneAndUpdate(
             { razorpayPaymentId: payment.id },
             {
@@ -76,7 +74,6 @@ const verifySignature = asyncHandler(async (req, res) => {
         refundFailureMail(user.email, order.totalAmount);
     } else if (event.event === "refund.processed") {
         const payment = event.payload.payment.entity;
-        console.log("Refund Processed Webhook payment", payment);
         order = await Order.findOneAndUpdate(
             { razorpayPaymentId: payment.id },
             {
