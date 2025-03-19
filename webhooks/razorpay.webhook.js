@@ -52,7 +52,7 @@ const verifySignature = asyncHandler(async (req, res) => {
         const payment = event.payload.payment.entity;
         console.log("Refund Created Webhook payment", payment);
         order = await Order.findOneAndUpdate(
-            { razorpayPaymentId: payment.payment_id },
+            { razorpayPaymentId: payment.id },
             {
                 paymentStatus: "Refunded_Created",
                 razorpayRefundId: payment.id,
@@ -66,7 +66,7 @@ const verifySignature = asyncHandler(async (req, res) => {
         const payment = event.payload.payment.entity;
         console.log("Refund Failed Webhook payment", payment);
         order = await Order.findOneAndUpdate(
-            { razorpayPaymentId: payment.payment_id },
+            { razorpayPaymentId: payment.id },
             {
                 paymentStatus: "Refund_Failed",
             },
@@ -78,7 +78,7 @@ const verifySignature = asyncHandler(async (req, res) => {
         const payment = event.payload.payment.entity;
         console.log("Refund Processed Webhook payment", payment);
         order = await Order.findOneAndUpdate(
-            { razorpayPaymentId: payment.payment_id },
+            { razorpayPaymentId: payment.id },
             {
                 paymentStatus: "Refund_Processed",
             },
