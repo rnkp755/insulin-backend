@@ -12,12 +12,16 @@ const transporter = nodemailer.createTransport({
 });
 
 const sendMail = async(email, subject, text) => {
-    await transporter.sendMail({
-		from: process.env.EMAIL_USER,
-		to: email,
-        subject,
-        text
-	});
+    try {
+        await transporter.sendMail({
+    		from: process.env.EMAIL_USER,
+    		to: email,
+            subject,
+            text
+    	});
+    } catch (error) {
+        console.error("Error sending email:", error);
+    }
 };
 
 const sendOTPMail = async (email, otp) => {
@@ -48,18 +52,21 @@ const paymentFailureMail = async (email, order) => {
 }
 
 const refundCreationMail = async (email, amount) => {
+    console.log("Refund Creation Mail");
     const subject = `Refund Initiated`;
     const text = `A refund of ${amount} has been initiated. You'll receive the amount in your account within 5-7 business days.`;
     await sendMail(email, subject, text);
 };
 
 const refundProcessedMail = async (email, amount) => {
+    console.log("Refund Processed Mail");
     const subject = `Refund Processed`;
     const text = `A refund of ${amount} has been processed.`;
     await sendMail(email, subject, text);
 }
 
 const refundFailureMail = async (email, amount) => {
+    console.log("Refund Failure Mail");
     const subject = `Refund Failed`;
     const text = `A refund of ${amount} has failed. Please contact support for more details.`;
     await sendMail(email, subject, text);
