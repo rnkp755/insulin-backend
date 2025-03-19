@@ -366,6 +366,68 @@
 						"description": "- Login is required.\n    \n- Send Access token in Authourization tab, after selection Bearer Token.\n    \n- These many fields can be updated.\n    \n\n| **Fields** | **Type** |\n| --- | --- |\n| quiz | \\[String\\] |\n| firstName | String |\n| lastName | String |\n| mobile | Number |\n| gender | String |\n| age | Number |"
 					},
 					"response": []
+				},
+				{
+					"name": "GET MY PROFILE",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2IwZDRlMjliZjZmZmMzMGUwNjYzYzEiLCJpYXQiOjE3NDIzNzIxMjksImV4cCI6MTc0MjQ1ODUyOX0.Q_nilkDcGK-ROmTAN5sYuskwlmf1J0ufAoJfcJMTXGA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/user",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GET SOMEONE's PROFILE (Admin Only)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2IwZDRlMjliZjZmZmMzMGUwNjYzYzEiLCJpYXQiOjE3NDIzNzIxMjksImV4cCI6MTc0MjQ1ODUyOX0.Q_nilkDcGK-ROmTAN5sYuskwlmf1J0ufAoJfcJMTXGA",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/user/getProfile?userId=67b0d4e29bf6ffc30e0663c1",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"user",
+								"getProfile"
+							],
+							"query": [
+								{
+									"key": "userId",
+									"value": "67b0d4e29bf6ffc30e0663c1"
+								}
+							]
+						},
+						"description": "Accepted Query Parameters\n\n```\n?email=pmstk1801@gmail.com\n\n ```\n\nOR\n\n```\n?userId=67b0d4e29bf6ffc30e0663c1\n\n ```"
+					},
+					"response": []
 				}
 			]
 		},
@@ -1162,7 +1224,7 @@
 								"header": [],
 								"body": {
 									"mode": "raw",
-									"raw": "{\r\n    \"status\": \"Success\",\r\n    \"type\": \"paymentStatus\"\r\n}",
+									"raw": "{\r\n    \"status\": \"Delivered\",\r\n    \"type\": \"orderStatus\"\r\n}",
 									"options": {
 										"raw": {
 											"language": "json"
@@ -1312,7 +1374,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2IwZDRlMjliZjZmZmMzMGUwNjYzYzEiLCJmdWxsTmFtZSI6IlByYW5hdiBLdW1hciIsImlhdCI6MTc0MDUwOTg4NywiZXhwIjoxNzQwNTk2Mjg3fQ.0vxRB8WgQaC_CXFbI_ziTxFiezJx0Vqa0cdm_Djbq10",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2IwZDRlMjliZjZmZmMzMGUwNjYzYzEiLCJpYXQiOjE3NDIzNTk4NzAsImV4cCI6MTc0MjQ0NjI3MH0.xAqeyDxkq38PJaURnYR1Kb04i30lRfLb-JhAZ8lbpjM",
 									"type": "string"
 								}
 							]
@@ -1329,14 +1391,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{server}}/order/cancel/67be1c2a7fdde7f058951c2f",
+							"raw": "{{server}}/order/cancel/67da58822b3aff7a942e53ed",
 							"host": [
 								"{{server}}"
 							],
 							"path": [
 								"order",
 								"cancel",
-								"67be1c2a7fdde7f058951c2f"
+								"67da58822b3aff7a942e53ed"
 							]
 						}
 					},

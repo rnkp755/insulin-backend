@@ -1,21 +1,10 @@
 import asyncHandler from "../utils/asyncHandler.js";
 import { OTP } from "../models/otp.model.js";
 import { User } from "../models/user.model.js";
-import nodemailer from "nodemailer";
 import crypto from "crypto";
 import { APIError } from "../utils/APIError.js";
 import { APIResponse } from "../utils/APIResponse.js";
-import dotenv from "dotenv";
-
-dotenv.config();
-
-const transporter = nodemailer.createTransport({
-	service: "Gmail",
-	auth: {
-		user: process.env.EMAIL_USER,
-		pass: process.env.EMAIL_PASS,
-	},
-});
+import { sendOTPMail } from "../utils/sendMail.js";
 
 // Generate and send OTP
 const sendOTP = asyncHandler(async (req, res) => {
@@ -40,12 +29,7 @@ const sendOTP = asyncHandler(async (req, res) => {
 		expiresAt: new Date(Date.now() + 5 * 60 * 1000),
 	});
 
-	await transporter.sendMail({
-		from: process.env.EMAIL_USER,
-		to: email,
-		subject: "Your OTP Code",
-		text: `Your Verification OTP is ${otp}. It will expire in 5 minutes.`,
-	});
+	sendOTPMail(email, otp);
 
 	return res
 		.status(200)

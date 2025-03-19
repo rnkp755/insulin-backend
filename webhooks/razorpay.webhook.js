@@ -4,15 +4,7 @@ import { APIResponse } from "../utils/APIResponse.js";
 import { Order } from "../models/order.model.js";
 import { User } from "../models/user.model.js";
 import crypto from "crypto";
-import nodemailer from "nodemailer";
-
-const transporter = nodemailer.createTransport({
-    service: "Gmail",
-    auth: {
-        user: process.env.EMAIL_USER,
-        pass: process.env.EMAIL_PASS,
-    },
-});
+import { paymentCaptureMail, paymentFailureMail, refundCreationMail, refundProcessedMail } from "../utils/sendMail.js";
 
 const verifySignature = asyncHandler(async (req, res) => {
     const body = req.body;
@@ -39,11 +31,12 @@ const verifySignature = asyncHandler(async (req, res) => {
             {
                 paymentStatus: "Success",
                 razorpayPaymentId: payment.id,
+                status: "Confirmed"
             },
             { new: true }
         );
         const user = await User.findById(order.userId);
-        sendMail(order, true, user.email);
+        paymentCaptureMail(user.email, order);
     } else if (event.event === "payment.failed") {
         const payment = event.payload.payment.entity;
         order = await Order.findOneAndUpdate(
@@ -54,8 +47,44 @@ const verifySignature = asyncHandler(async (req, res) => {
             { new: true }
         );
         const user = await User.findById(order.userId);
-        sendMail(order, false, user.email);
-    } else {
+        paymentFailureMail(user.email, order);
+    } else if (event.event === "refund.created") {
+        const payment = event.payload.payment.entity;
+        order = await Order.findOneAndUpdate(
+            { razorpayPaymentId: payment.id },
+            {
+                paymentStatus: "Refunded_Created",
+                razorpayRefundId: payment.id,
+                status: "Cancelled"
+            },
+            { new: true }
+        ); 
+        const user = await User.findById(order.userId);
+        refundCreationMail(user.email, order.totalAmount);
+    } else if (event.event === "refund.failed") {
+        const payment = event.payload.payment.entity;
+        order = await Order.findOneAndUpdate(
+            { razorpayPaymentId: payment.id },
+            {
+                paymentStatus: "Refund_Failed",
+            },
+            { new: true }
+        ); 
+        const user = await User.findById(order.userId);
+        refundFailureMail(user.email, order.totalAmount);
+    } else if (event.event === "refund.processed") {
+        const payment = event.payload.payment.entity;
+        order = await Order.findOneAndUpdate(
+            { razorpayPaymentId: payment.id },
+            {
+                paymentStatus: "Refund_Processed",
+            },
+            { new: true }
+        ); 
+        const user = await User.findById(order.userId);
+        refundProcessedMail(user.email, order.totalAmount);
+    }
+    else {
         throw new APIError(400, "Invalid event type");
     }
 
@@ -67,15 +96,5 @@ const verifySignature = asyncHandler(async (req, res) => {
 		.status(201)
 		.json(new APIResponse(201, order, "Payment status updated successfully"));
 });
-
-const sendMail = async(order, success, email) => {
-    // TODO: Email Text could be improved
-    await transporter.sendMail({
-		from: process.env.EMAIL_USER,
-		to: email,
-		subject: `Payment ${success ? "Success" : "Failed"}`,
-		text: `Your payment for order ${order._id} has ${success ? "succeeded" : "failed"}. Please check the status in the website.`,
-	});
-};
 
 export { verifySignature };

@@ -7,6 +7,12 @@ import { Medicine } from "../models/medicine.model.js";
 import { Order } from "../models/order.model.js";
 import { Test } from "../models/test.model.js";
 import Razorpay from "razorpay";
+import { orderCancelMail } from "../utils/sendMail.js";
+
+const razorpay = new Razorpay({
+	key_id: process.env.RAZORPAY_KEY_ID,
+	key_secret: process.env.RAZORPAY_KEY_SECRET,
+});
 
 const createOrder = asyncHandler(async (req, res) => {
 	const { addressId, items, paymentMode } = req.body;
@@ -74,10 +80,6 @@ const createOrder = asyncHandler(async (req, res) => {
 
 	// Handle Razorpay payment here
 	if (paymentMode === "ONLINE") {
-		const razorpay = new Razorpay({
-			key_id: process.env.RAZORPAY_KEY_ID,
-			key_secret: process.env.RAZORPAY_KEY_SECRET,
-		});
 
 		const razorpayOrder = await razorpay.orders.create({
 			amount: totalAmount * 100,
@@ -89,6 +91,8 @@ const createOrder = asyncHandler(async (req, res) => {
 		});
 
 		order.razorpayOrderId = razorpayOrder.id;
+	} else {
+		order.status = "Confirmed";
 	}
 
 	await order.save({ validateBeforeSave: true });
@@ -130,17 +134,40 @@ const getOrder = asyncHandler(async (req, res) => {
 const cancelOrder = asyncHandler(async (req, res) => {
 	const userId = req.user?._id.toString();
 	const order = await Order.findById(req.params.id);
+
 	if (!order || order.userId.toString() !== userId) {
 		throw new APIError(404, "Unauthorized access");
 	}
-	if (order.status === "Cancelled") {
-		throw new APIError(400, "Order already cancelled");
+	if (order.status === "Cancelled" || order.status === "Pending") {
+		throw new APIError(400, "Order already cancelled or pending");
 	}
+
+	if (order.paymentMode === "ONLINE" && order.paymentStatus === "Success") {
+		// Handle Razorpay refund here
+		const refund = await razorpay.payments.refund(order.razorpayPaymentId,{
+			amount: `${order.totalAmount * 100}`,
+			speed: "normal",
+			notes: {
+				db_orderId: `Refund for order ${order._id}`
+			},
+			receipt: `refund-${order.razorpayPaymentId}`
+		})
+
+		order.razorpayRefundId = refund.id;
+		order.paymentStatus = "Refunded_Created";
+	}
+
 	order.status = "Cancelled";
 	await order.save({ validateBeforeSave: true });
+
+	const user = await User.findById(order.userId).select("email");
+
+	orderCancelMail(user.email, order);
+
 	return res
 		.status(200)
 		.json(new APIResponse(200, {}, "Order cancelled successfully"));
+
 });
 
 const getAllOrders = asyncHandler(async (req, res) => {
