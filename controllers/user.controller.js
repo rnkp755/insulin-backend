@@ -368,6 +368,48 @@ const updateProfile = asyncHandler(async (req, res) => {
 		);
 });
 
+const getUserProfile = asyncHandler(async (req, res) => {
+	const user = await User.findById(req.user?._id).select(
+		"-password -refreshToken -__v -createdAt -updatedAt"
+	);
+	if (!user) {
+		throw new APIError(404, "User not found");
+	}
+	return res
+		.status(200)
+		.json(new APIResponse(200, user, "User Profile fetched successfully"));
+});
+
+const getUserProfileForAdmin = asyncHandler(async (req, res) => {
+	const userId = req.query.userId;
+    const email = req.query.email;
+    
+    let user;
+    
+    if (userId && userId !== "") {
+        user = await User.findById(userId).select(
+            "-password -refreshToken -__v -createdAt -updatedAt"
+        );
+    } else if (email) {
+        user = await User.findOne({ email }).select(
+            "-password -refreshToken -__v -createdAt -updatedAt"
+        );
+	}
+	
+	if (!user) {
+		throw new APIError(404, "User not found");
+	}
+	return res
+		.status(200)
+		.json(
+			new APIResponse(
+				200,
+				user,
+				"User Profile fetched successfully by Admin"
+			)
+		);
+});
+
 export {
 	registerUser,
 	loginUser,
@@ -376,4 +418,6 @@ export {
 	changeUserPassword,
 	resetPassword,
 	updateProfile,
+	getUserProfile,
+	getUserProfileForAdmin
 };
