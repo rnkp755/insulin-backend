@@ -155,7 +155,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"email\": \"pmstk1802@gmail.com\"\r\n}",
+							"raw": "{\r\n    \"email\": \"pmstk1857@gmail.com\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -645,6 +645,35 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Delete Medicine",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2IwZDRlMjliZjZmZmMzMGUwNjYzYzEiLCJpYXQiOjE3NDI0NjExNDEsImV4cCI6MTc0MjU0NzU0MX0.wvyum_2ElgcQQwFT3KSl3C2UO5gwJHE0DB1-18uVmig",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/medicine/delete/67d6af92c157701c20746da2",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"medicine",
+								"delete",
+								"67d6af92c157701c20746da2"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -809,6 +838,35 @@
 								"test",
 								"update",
 								"67b0fe7d423bd8e73946f7b0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Test",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2IwZDRlMjliZjZmZmMzMGUwNjYzYzEiLCJpYXQiOjE3NDI0NjExNDEsImV4cCI6MTc0MjU0NzU0MX0.wvyum_2ElgcQQwFT3KSl3C2UO5gwJHE0DB1-18uVmig",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/test/delete/67d6afc7c157701c20746dab",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"test",
+								"delete",
+								"67d6afc7c157701c20746dab"
 							]
 						}
 					},
@@ -1147,6 +1205,35 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Get Address By Admin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2IwZDRlMjliZjZmZmMzMGUwNjYzYzEiLCJpYXQiOjE3NDI0NjExNDEsImV4cCI6MTc0MjU0NzU0MX0.wvyum_2ElgcQQwFT3KSl3C2UO5gwJHE0DB1-18uVmig",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/address/getAddressForAdmin/67be1a53620a8732d0de1245",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"address",
+								"getAddressForAdmin",
+								"67be1a53620a8732d0de1245"
+							]
+						}
+					},
+					"response": []
 				}
 			],
 			"description": "These routes are for user to add and manage delivery address"
@@ -1391,14 +1478,14 @@
 							}
 						},
 						"url": {
-							"raw": "{{server}}/order/cancel/67da58822b3aff7a942e53ed",
+							"raw": "{{server}}/order/cancel/67da678a36b0b7297001dcf6",
 							"host": [
 								"{{server}}"
 							],
 							"path": [
 								"order",
 								"cancel",
-								"67da58822b3aff7a942e53ed"
+								"67da678a36b0b7297001dcf6"
 							]
 						}
 					},
@@ -1570,6 +1657,35 @@
 							]
 						},
 						"description": "This route handels clinic update.\n\n- While updating medicalServices, you are expected to pass \\`ids\\` of all tests. That array will be overridden.\n    \n- Clinic images update are also handled, that can be passed through \\`from-data\\`"
+					},
+					"response": []
+				},
+				{
+					"name": "Delete Clinic",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2N2IwZDRlMjliZjZmZmMzMGUwNjYzYzEiLCJpYXQiOjE3NDI0NjExNDEsImV4cCI6MTc0MjU0NzU0MX0.wvyum_2ElgcQQwFT3KSl3C2UO5gwJHE0DB1-18uVmig",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{server}}/clinic/delete/67d6b072c157701c20746dbf",
+							"host": [
+								"{{server}}"
+							],
+							"path": [
+								"clinic",
+								"delete",
+								"67d6b072c157701c20746dbf"
+							]
+						}
 					},
 					"response": []
 				}

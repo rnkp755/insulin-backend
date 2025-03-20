@@ -130,4 +130,17 @@ const deleteAddress = asyncHandler(async (req, res) => {
 		.json(new APIResponse(200, {}, "Address deleted successfully"));
 });
 
-export { addAddress, getAddresses, getAddress, updateAddress, deleteAddress };
+const getAddressForAdmin = asyncHandler(async (req, res) => {
+	const { id } = req.params;
+	const address = await Address.findById(id);
+	if (!address) {
+		throw new APIError(404, "No Address Found");
+	}
+	return res
+		.status(200)
+		.json(
+			new APIResponse(200, address, "Address fetched successfully")
+		);
+});
+
+export { addAddress, getAddresses, getAddress, updateAddress, deleteAddress, getAddressForAdmin };

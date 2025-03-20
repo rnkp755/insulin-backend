@@ -3,6 +3,7 @@ import { APIError } from "../utils/APIError.js";
 import { APIResponse } from "../utils/APIResponse.js";
 import { Test } from "../models/test.model.js";
 import { User } from "../models/user.model.js";
+import { Clinic } from "../models/clinic.model.js";
 import { uploadOnCloudinary } from "../utils/Cloudinary.js";
 
 const addTest = asyncHandler(async (req, res) => {
@@ -136,4 +137,28 @@ const updateTest = asyncHandler(async (req, res) => {
 		);
 });
 
-export { addTest, getTest, getAllTests, updateTest };
+const deleteTest = asyncHandler(async (req, res) => {
+	const { id } = req.params;
+	const test = await Test.findByIdAndDelete(id);
+	if (!test) {
+		throw new APIError(404, "No Test Found");
+	}
+	const clinicId = test.clinicId;
+	const clinic = await Clinic.findByIdAndUpdate(
+		clinicId, 
+		{ 
+			$pull: { medicalServices: test._id } 
+		},
+		{ new: true }
+	);
+	if (!clinic) {
+		throw new APIError(500, "Failed to remove test from clinic.");
+	}
+
+	return res
+		.status(200)
+		.json(
+			new APIResponse(200, test, "Test Deleted Successfully"));
+});
+
+export { addTest, getTest, getAllTests, updateTest, deleteTest };

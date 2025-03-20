@@ -5,6 +5,7 @@ import {
 	getClinic,
 	getAllClinics,
 	updateClinic,
+	deleteClinic
 } from "../controllers/clinic.controller.js";
 import { verifyAdmin } from "../middlewares/auth.middleware.js";
 
@@ -20,5 +21,6 @@ clinicRouter.route("/").get(getAllClinics);
 clinicRouter
 	.route("/update/:id")
 	.patch(verifyAdmin, upload.array("images", 5), updateClinic);
+clinicRouter.route("/delete/:id").delete(verifyAdmin, deleteClinic);
 
 export default clinicRouter;

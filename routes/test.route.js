@@ -5,6 +5,7 @@ import {
 	getTest,
 	getAllTests,
 	updateTest,
+	deleteTest
 } from "../controllers/test.controller.js";
 import { verifyAdmin } from "../middlewares/auth.middleware.js";
 
@@ -16,5 +17,6 @@ testRouter.route("/add").post(verifyAdmin, upload.array("images", 5), addTest);
 testRouter.route("/:id").get(getTest);
 testRouter.route("/").get(getAllTests);
 testRouter.route("/update/:id").patch(verifyAdmin, updateTest);
+testRouter.route("/delete/:id").delete(verifyAdmin, deleteTest);
 
 export default testRouter;
