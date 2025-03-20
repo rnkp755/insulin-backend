@@ -261,4 +261,15 @@ const removeFromCart = asyncHandler(async (req, res) => {
 		);
 });
 
-export { addToCart, getCart, updateCart, removeFromCart };
+const clearCart = asyncHandler(async (req, res) => {
+	const cart = await Cart.findOneAndDelete({ userId: req.user?._id });
+	if (!cart) {
+		throw new APIError(404, "Cart not found");
+	}
+
+	return res
+		.status(200)
+		.json(new APIResponse(200, {}, "Cart cleared successfully"));
+});
+
+export { addToCart, getCart, updateCart, removeFromCart, clearCart };
