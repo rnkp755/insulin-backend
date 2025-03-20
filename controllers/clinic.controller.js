@@ -267,4 +267,29 @@ const updateClinic = asyncHandler(async (req, res) => {
 		.json(new APIResponse(200, clinic, "Clinic Updated Successfully"));
 });
 
-export { addClinic, getClinic, getAllClinics, updateClinic };
+const deleteClinic = asyncHandler(async (req, res) => {
+	const { id } = req.params;
+	const clinic = await Clinic.findByIdAndDelete(id);
+	if (!clinic) {
+		throw new APIError(404, "No Clinic Found");
+	}
+	const medicalServices = clinic.medicalServices;
+	await Promise.all(
+		medicalServices.map(async (serviceId) => {
+			const test = await Test.findByIdAndDelete(
+				serviceId,
+			);
+			if (!test) {
+				throw new APIError(
+					500,
+					`Failed to unassign test ${serviceId}`
+				);
+			}
+		})
+	);
+	return res
+		.status(200)
+		.json(new APIResponse(200, clinic, "Clinic Deleted Successfully"));
+});
+
+export { addClinic, getClinic, getAllClinics, updateClinic, deleteClinic };

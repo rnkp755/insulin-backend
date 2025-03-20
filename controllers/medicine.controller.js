@@ -167,4 +167,20 @@ const updateMedicine = asyncHandler(async (req, res) => {
 		);
 });
 
-export { addMedicine, getMedicine, getAllMedicines, updateMedicine };
+const deleteMedicine = asyncHandler(async (req, res) => {
+	const { id } = req.params;
+
+	const medicine = await Medicine.findByIdAndDelete(id);
+
+	if (!medicine) {
+		throw new APIError(404, "No Medicine Found");
+	}
+
+	return res
+		.status(200)
+		.json(
+			new APIResponse(200, null, "Medicine Deleted Successfully")
+		);
+});
+
+export { addMedicine, getMedicine, getAllMedicines, updateMedicine, deleteMedicine };

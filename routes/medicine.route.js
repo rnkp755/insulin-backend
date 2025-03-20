@@ -5,6 +5,7 @@ import {
 	getMedicine,
 	getAllMedicines,
 	updateMedicine,
+	deleteMedicine
 } from "../controllers/medicine.controller.js";
 import { verifyAdmin } from "../middlewares/auth.middleware.js";
 
@@ -18,5 +19,6 @@ medicineRouter
 medicineRouter.route("/:id").get(getMedicine);
 medicineRouter.route("/").get(getAllMedicines);
 medicineRouter.route("/update/:id").patch(verifyAdmin, updateMedicine);
+medicineRouter.route("/delete/:id").delete(verifyAdmin, deleteMedicine);
 
 export default medicineRouter;
